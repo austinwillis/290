@@ -90,26 +90,22 @@ public class Measurement {
 	}
 
 	private ArrayList<String> simplifynum(ArrayList<String> num2, ArrayList<String> denom2) {
+		String temp;
 		for (int i = 0; i < num2.size(); i++) {
-		}
-		for (int i = 0; i < num2.size(); i++) {
-			for (int j = 0; j < denom2.size(); j++) {
-				if (num2.get(i).equals(denom2.get(j))) {
-					num2.remove(i);
-					denom2.remove(j);
-				}
+			temp = num2.get(i);
+				if (denom2.remove(temp)) {
+					num2.remove(temp);
 			}
 		}
 		return num2;
 	}
 	
 	private ArrayList<String> simplifydenom(ArrayList<String> num2, ArrayList<String> denom2) {
+		String temp;
 		for (int i = 0; i < num2.size(); i++) {
-			for (int j = 0; j < denom2.size(); j++) {
-				if (num2.get(i).equals(denom2.get(j))) {
-					num2.remove(i);
-					denom2.remove(j);
-				}
+			temp = num2.get(i);
+				if (denom2.remove(temp)) {
+					num2.remove(temp);
 			}
 		}
 		return denom2;

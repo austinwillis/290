@@ -30,5 +30,11 @@ public class MeasurementTest {
 		q = q.mult(q);
 		q = q.mult(q);
 		System.out.println(q.toString());
+		q = new Measurement(1, "in");
+		x = new Measurement(1, "in");
+		x = x.mult(x);
+		x = x.mult(x);
+		q = q.div(x);
+		System.out.println(q);
 	}
 }
