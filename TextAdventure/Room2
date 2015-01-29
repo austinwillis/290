@@ -1,0 +1,6 @@
+StartingRoom
+shortdescription
+longdescription
+lookdescription
+item:name,description,required
+action:name,description,requires,performs
