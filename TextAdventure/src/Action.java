@@ -1,7 +1,5 @@
-import java.util.ArrayList;
-
-
 public class Action {
+	
 	private String actionName;
 	private String requires;
 	private String description;
@@ -15,7 +13,39 @@ public class Action {
 	}
 
 	private String parseperform(String tokens3) {
-		return null;
+		return tokens3;
+	}
+
+	public String getActionName() {
+		return actionName;
+	}
+
+	public void setActionName(String actionName) {
+		this.actionName = actionName;
+	}
+
+	public String getRequires() {
+		return requires;
+	}
+
+	public void setRequires(String requires) {
+		this.requires = requires;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getPerforms() {
+		return performs;
+	}
+
+	public void setPerforms(String performs) {
+		this.performs = performs;
 	}
 	
 }

@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -49,7 +48,7 @@ public class Room {
 	}
 
 	private void parsestrings(String buffer) {
-		String[] tokens = buffer.split("\\,");
+		String[] tokens = buffer.split("[,]");
 		if (tokens[0].equals("item")) {
 			makeitem(tokens);
 		}
@@ -59,10 +58,12 @@ public class Room {
 	}
 
 	private void makeaction(String[] tokens) {
+		this.actions = new ArrayList<Action>();
 		this.actions.add(new Action(tokens[1], tokens[2], tokens[3], tokens[4]));
 	}
 
 	private void makeitem(String[] tokens) {
+		this.items = new ArrayList<Item>();
 		this.items.add(new Item(tokens[1], tokens[2], tokens[3]));
 	}
 
