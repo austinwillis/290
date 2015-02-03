@@ -50,25 +50,33 @@ public class Player {
 		}
 		if (input.equalsIgnoreCase("help")) {
 			return "\n" + this.currentRoom.getRoomName() + "\n" + this.currentRoom.getLongdes() 
-					+ "\n\n" + "Enter commands to explore the game.\nCommands you can use are go, get, use, look, help, "
+					+ "\n\n" + "Enter commands to explore the game.\nCommands you can use are go to, get, use, look, help, "
 							+ "\nand other actions available to certain rooms. \n\n"
 							+ "If you wish to quit the game you can do so with the command stop.";
 		}
-		else return longparse(input);
+		else checkactions(input);
+		return longparse(input);
 		}
+	}
+
+	private void checkactions(String input) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	private String longparse(String input) {
 		String[] tokens = input.split("[ ]");
-		if (tokens[0].equalsIgnoreCase("go")) {
-			if (tokens.length < 2) {
-				return "You can't do that.";
-			}
-			if (this.getCurrentRoom().hasexit(tokens[1])) {
-				Room temp = this.getCurrentRoom();
-				this.setCurrentRoom(new Room(tokens[1]));
-				this.getCurrentRoom().addexit(temp);
-				return this.currentRoom.getRoomName() + "\n" + this.getCurrentRoom().getShortdes();
+		if (tokens.length < 2) {
+			return "I don't know what you meant.";
+		}
+		if (tokens.length > 2) {
+			if (tokens[0].equalsIgnoreCase("go") && tokens[1].equalsIgnoreCase("to")) {
+				if (this.getCurrentRoom().hasexit(tokens[2])) {
+					Room temp = this.getCurrentRoom();
+					this.setCurrentRoom(new Room(tokens[2]));
+					this.getCurrentRoom().addexit(temp);
+					return this.currentRoom.getRoomName() + "\n" + this.getCurrentRoom().getShortdes();
+				}
 			}
 		}
 		return "I don't know what you meant.";

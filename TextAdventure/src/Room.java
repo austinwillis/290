@@ -74,7 +74,6 @@ public class Room {
 	}
 
 	private void makeroom(String[] tokens) {
-		System.out.println(tokens[1]);
 		this.exits.add(new Room(tokens[1]));
 	}
 
