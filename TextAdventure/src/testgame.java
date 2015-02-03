@@ -20,7 +20,7 @@ public class testgame {
 		assertEquals("description", p1.getCurrentRoom().getActions().get(0).getDescription());
 		assertEquals("requires", p1.getCurrentRoom().getActions().get(0).getRequires());
 		assertEquals("performs", p1.getCurrentRoom().getActions().get(0).getPerforms());
-		p1.play();
+		assertEquals(p1.play("look"), "lookdescription");
 	}
 
 }

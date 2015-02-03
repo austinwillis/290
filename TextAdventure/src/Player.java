@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 
 public class Player {
@@ -26,17 +25,53 @@ public class Player {
 		this.items = items;
 	}
 	
-	void play() {
-		while(!this.GameOver) {
-			Scanner in = new Scanner(System.in);
-			String input = in.nextLine();
-			parseinput(input);
+	String play(String input) {
+			return parseinput(input);
+	}
+
+	private String parseinput(String input) {
+		if (this.GameOver) {
+			if (input.equalsIgnoreCase("y")) {
+				return "END";
+			}
+			else if (input.equalsIgnoreCase("n")) {
+				this.GameOver = false;
+				return "Keep Playing.";
+			}
+			else return "Enter Y or N";
+		}
+		else {
+		if (input.equalsIgnoreCase("stop")) {
+			this.GameOver = true;
+			return "Are you sure you want to quit? (Y/N)";
+		}
+		if (input.equalsIgnoreCase("look")) {
+			return this.currentRoom.getLookdes();
+		}
+		if (input.equalsIgnoreCase("help")) {
+			return "\n" + this.currentRoom.getRoomName() + "\n" + this.currentRoom.getLongdes() 
+					+ "\n\n" + "Enter commands to explore the game.\nCommands you can use are go, get, use, look, help, "
+							+ "\nand other actions available to certain rooms. \n\n"
+							+ "If you wish to quit the game you can do so with the command stop.";
+		}
+		else return longparse(input);
 		}
 	}
 
-	private void parseinput(String input) {
-		if (input.equalsIgnoreCase("stop")) {
-			this.GameOver = true;
+	private String longparse(String input) {
+		String[] tokens = input.split("[ ]");
+		if (tokens[0].equalsIgnoreCase("go")) {
+			if (tokens.length < 2) {
+				return "You can't do that.";
+			}
+			if (this.getCurrentRoom().hasexit(tokens[1])) {
+				Room temp = this.getCurrentRoom();
+				this.setCurrentRoom(new Room(tokens[1]));
+				this.getCurrentRoom().addexit(temp);
+				return this.currentRoom.getRoomName() + "\n" + this.getCurrentRoom().getShortdes();
+			}
 		}
+		return "I don't know what you meant.";
 	}
+
 }

@@ -1,0 +1,6 @@
+Room2
+This is the second room.
+This one came after the first room.
+There isn't anything to see here.
+item,name,description,required
+action,name,description,requires,performs

@@ -11,9 +11,13 @@ public class Room {
 	private String lookdes;
 	private ArrayList<Item> items;
 	private ArrayList<Action> actions;
+	private ArrayList<Room> exits;
 	
 	public Room(String string) {
-	    File file = new File(string);
+		this.actions = new ArrayList<Action>();
+		this.items = new ArrayList<Item>();
+		this.exits = new ArrayList<Room>();
+	    File file = new File(string + ".txt");
 
 	    try {
 
@@ -23,7 +27,16 @@ public class Room {
 	    }
 	    catch (FileNotFoundException e) {
 	        e.printStackTrace();
+	        System.exit(1);
 	    }
+	}
+
+	public ArrayList<Room> getExits() {
+		return exits;
+	}
+
+	public void setExits(ArrayList<Room> exits) {
+		this.exits = exits;
 	}
 
 	private void readroomfile(Scanner sc) {
@@ -55,15 +68,21 @@ public class Room {
 		if(tokens[0].equals("action")) {
 			makeaction(tokens);
 		}
+		if(tokens[0].equals("exit")) {
+			makeroom(tokens);
+		}
+	}
+
+	private void makeroom(String[] tokens) {
+		System.out.println(tokens[1]);
+		this.exits.add(new Room(tokens[1]));
 	}
 
 	private void makeaction(String[] tokens) {
-		this.actions = new ArrayList<Action>();
 		this.actions.add(new Action(tokens[1], tokens[2], tokens[3], tokens[4]));
 	}
 
 	private void makeitem(String[] tokens) {
-		this.items = new ArrayList<Item>();
 		this.items.add(new Item(tokens[1], tokens[2], tokens[3]));
 	}
 
@@ -105,5 +124,18 @@ public class Room {
 
 	public void setActions(ArrayList<Action> actions) {
 		this.actions = actions;
+	}
+
+	public boolean hasexit(String input) {
+		for (Room each : this.exits) {
+			if (each.getRoomName().equals(input)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public void addexit(Room temp) {
+		this.exits.add(temp);
 	}
 }

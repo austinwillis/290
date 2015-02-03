@@ -1,0 +1,7 @@
+StartingRoom
+The game has started.
+This is the start of the game.
+Try going to Room2.
+item,name,description,required
+action,name,description,requires,performs
+exit,Room2
