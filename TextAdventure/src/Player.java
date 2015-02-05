@@ -41,6 +41,12 @@ public class Player {
 			else return "Enter Y or N";
 		}
 		else {
+		if (input.equalsIgnoreCase("i")) {
+			if (this.items.size() < 1) {
+				return "Your inventory is empty";
+			}
+			return "You have " + printinventory();
+		}
 		if (input.equalsIgnoreCase("stop")) {
 			this.GameOver = true;
 			return "Are you sure you want to quit? (Y/N)";
@@ -50,36 +56,112 @@ public class Player {
 		}
 		if (input.equalsIgnoreCase("help")) {
 			return "\n" + this.currentRoom.getRoomName() + "\n" + this.currentRoom.getLongdes() 
-					+ "\n\n" + "Enter commands to explore the game.\nCommands you can use are go to, get, use, look, help, "
+					+ "\n\n" + "Enter commands to explore the game.\nCommands you can use are "
+							+ "\ngo to, get, use, look, help, get <item name>, i (inventory)"
 							+ "\nand other actions available to certain rooms. \n\n"
 							+ "If you wish to quit the game you can do so with the command stop.";
 		}
-		else checkactions(input);
+		else if (checkactions(input)) {
+			return performaction(input);
+		}
 		return longparse(input);
 		}
 	}
 
-	private void checkactions(String input) {
-		// TODO Auto-generated method stub
+	private String printinventory() {
+		String output = "";
 		
+		for (int i = 0; i < this.items.size(); i++) {
+			if (i == 0) {
+				output += items.get(i).getItemName();
+			}
+			else output += ", " + items.get(i).getItemName();
+		}
+		return output;
+	}
+
+	private boolean checkactions(String input) {
+		return this.currentRoom.isaction(input);
+	}
+
+	private String performaction(String input) {
+		Action action = null;
+		for (Action each : this.getCurrentRoom().getActions()) {
+			if (each.getActionName().equalsIgnoreCase(input)) {
+				action = each;
+			}
+		}
+		if (action != null) {
+			if (this.hasitem(action.getRequires()) || action.getRequires().equalsIgnoreCase("NA")) {
+				if (this.getCurrentRoom().hasexit(action.getPerforms())) {
+					String temp = this.getCurrentRoom().getRoomName();
+					this.setCurrentRoom(new Room(action.getPerforms()));
+					this.getCurrentRoom().addexit(temp);
+					return action.getDescription() + this.currentRoom.getRoomName() + "\n" 
+					+ this.getCurrentRoom().getShortdes();
+				}
+				else return action.getDescription();
+			}
+			else return "You don't have the item needed for this action.";
+		}
+		return "This is not an action";
+	}
+
+	private boolean hasitem(String requires) {
+		for (Item each : this.items) {
+			if (each.getItemName().equalsIgnoreCase(requires)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	private String longparse(String input) {
 		String[] tokens = input.split("[ ]");
-		if (tokens.length < 2) {
-			return "I don't know what you meant.";
-		}
-		if (tokens.length > 2) {
+		if (tokens.length == 3) {
 			if (tokens[0].equalsIgnoreCase("go") && tokens[1].equalsIgnoreCase("to")) {
 				if (this.getCurrentRoom().hasexit(tokens[2])) {
-					Room temp = this.getCurrentRoom();
+					String temp = this.getCurrentRoom().getRoomName();
 					this.setCurrentRoom(new Room(tokens[2]));
 					this.getCurrentRoom().addexit(temp);
 					return this.currentRoom.getRoomName() + "\n" + this.getCurrentRoom().getShortdes();
 				}
 			}
 		}
+		if (tokens.length == 2 && tokens[0].equalsIgnoreCase("get")) {
+			if (this.getCurrentRoom().hasitem(tokens[1])) {
+					return getitem(tokens[1]);
+			}
+			else return "That item isn't here.";
+		}
+
+		if (tokens.length == 2 && tokens[0].equalsIgnoreCase("drop")) {
+			if (this.hasitem(tokens[1])) {
+				for (Item each : this.items) {
+					if (each.getItemName().equals(tokens[1])) {
+						this.items.remove(each);
+						return "You dropped " + tokens[1];
+				}
+					
+			}
+			}
+		}
 		return "I don't know what you meant.";
+	}
+
+	private String getitem(String string) {
+		for (Item other : this.items) {
+			if (other.getItemName().equals(string)) {
+				return "You already have that.";
+			}
+		}
+		for (Item each : this.getCurrentRoom().getItems()) {
+			if (each.getItemName().equalsIgnoreCase(string)) {
+				this.items.add(each);
+				return "You got " + string;
+			}
+		}
+		return "That item isn't here";
 	}
 
 }

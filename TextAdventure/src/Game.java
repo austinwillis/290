@@ -4,6 +4,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -28,6 +29,13 @@ public class Game implements ActionListener {
 		frame.setLayout(new FlowLayout());
 		frame.setSize(500, 325);
 		frame.setVisible(true);
+		
+		JScrollPane scroll = new JScrollPane (A);
+	    scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+	    
+	    frame.add(scroll);
+	    frame.setVisible(true);
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	public static void main(String[] args) {
@@ -42,6 +50,7 @@ public class Game implements ActionListener {
 		Room temp = player.getCurrentRoom();
 		String output = player.play(input);
 		A.append(output + "\n");
+		A.setCaretPosition(A.getDocument().getLength());
 		if (output.equals("END")) {
 			System.exit(0);
 		}

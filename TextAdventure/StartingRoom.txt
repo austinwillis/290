@@ -1,7 +1,7 @@
-StartingRoom
-The game has started.
-This is the start of the game.
+Erin
+Erin is my favorite person on the planet.
+But she is rude and steals donuts.
 Try going to Room2.
-item,name,description,required
-action,name,description,requires,performs
+item,Erin,Rude girl that steals donuts,required
+action,use Erin,She stole all of the donuts.,Erin,nothing
 exit,Room2

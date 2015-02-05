@@ -11,12 +11,12 @@ public class Room {
 	private String lookdes;
 	private ArrayList<Item> items;
 	private ArrayList<Action> actions;
-	private ArrayList<Room> exits;
+	private ArrayList<String> exits;
 	
 	public Room(String string) {
 		this.actions = new ArrayList<Action>();
 		this.items = new ArrayList<Item>();
-		this.exits = new ArrayList<Room>();
+		this.exits = new ArrayList<String>();
 	    File file = new File(string + ".txt");
 
 	    try {
@@ -31,11 +31,11 @@ public class Room {
 	    }
 	}
 
-	public ArrayList<Room> getExits() {
+	public ArrayList<String> getExits() {
 		return exits;
 	}
 
-	public void setExits(ArrayList<Room> exits) {
+	public void setExits(ArrayList<String> exits) {
 		this.exits = exits;
 	}
 
@@ -74,7 +74,7 @@ public class Room {
 	}
 
 	private void makeroom(String[] tokens) {
-		this.exits.add(new Room(tokens[1]));
+		this.exits.add(tokens[1]);
 	}
 
 	private void makeaction(String[] tokens) {
@@ -126,15 +126,33 @@ public class Room {
 	}
 
 	public boolean hasexit(String input) {
-		for (Room each : this.exits) {
-			if (each.getRoomName().equals(input)) {
+		for (String each : this.exits) {
+			if (each.equals(input)) {
 				return true;
 			}
 		}
 		return false;
 	}
 
-	public void addexit(Room temp) {
+	public void addexit(String temp) {
 		this.exits.add(temp);
+	}
+
+	public boolean isaction(String input) {
+		for (Action each : this.actions) {
+			if (each.getActionName().equalsIgnoreCase(input)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean hasitem(String string) {
+		for (Item each : this.items) {
+			if (each.getItemName().equalsIgnoreCase(string)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

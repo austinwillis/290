@@ -7,9 +7,18 @@ public class Action {
 	
 	public Action(String string, String tokens, String tokens2, String tokens3) {
 		this.actionName = string;
-		this.description = tokens;
+		this.description = parselines(tokens);
 		this.requires = tokens2;
 		this.performs = parseperform(tokens3);
+	}
+
+	private String parselines(String tokens) {
+		String[] buffer = tokens.split("[~]");
+		String output = "";
+		for (String each : buffer) {
+			output += each + "\n";
+		}
+		return output;
 	}
 
 	private String parseperform(String tokens3) {
