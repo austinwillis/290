@@ -10,13 +10,10 @@ import javax.swing.JTextField;
 
 
 public class Game implements ActionListener {
-	private static JTextArea A = new JTextArea("Welcome to a generic action game.\n\n"
-			+ "You are currently aboard Air Malaysia Flight 456 flying over the pacific ocean.\n"
-			+ "You had made your way to the tail of the plane and used the restroom\n"
-			+ "when there was a loud crash from the front of the plane\n"
-			+ "Get off the plane and figure out what is happening.\n\n", 15, 40);
+	private static JTextArea A = new JTextArea("Welcome to a I am bagel.\n\n"
+			+ "You are bagel. You need to toast yourself.\n", 15, 40);
 	private JTextField T = new JTextField(30);
-	private JFrame frame = new JFrame("Action Game");
+	private JFrame frame = new JFrame("I am bagel");
 	
 	static Player player;
 	

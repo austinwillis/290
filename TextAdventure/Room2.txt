@@ -1,7 +1,7 @@
-Coach
-Flying coach is never fun.
-You usually try to fly business or luck your way into first class,~but you weren't so lucky this time.
-The plane was pretty empty. Maybe everyone went up to business class.~Oh look! There's a key on the ground.
-item,key,I wonder what this key opens.,NA
-action,use name,This is a line of text~This is another line of text.,name,nothing
-exit,Business
+Counter Top
+You can see the toaster on the other half of the room.~You should be there in no time.
+There are many dangers ahead but the journey will be worthwhile. Maybe we can find some cream cheese on the way.
+We are going to have to go across the sink to get there.~Unless you have other ideas.
+item,butter,Now you look delicious.,NA
+action,jump,You took a leap of faith and threw yourself off the counter top. You landed in a large bowl labeled chomp.~Sure enough chomp came right away and you became dog food.,NA,lose
+exit,StartingRoom

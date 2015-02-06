@@ -1,6 +1,7 @@
-Restroom
-You need to get out of this bathroom.
-This looks about like any other airplane bathroom.
-You could go through the door to see what is going on.
-action,use door,You opened the door and exited the restroom,NA,Room2
+Cupboard
+You need to get out of this cupboard and get toasted.
+There has to be a toaster around here somewhere.
+You're in the cupboard. The door is closed and you need to get out.
+action,wait,Someone came and opened the door! This is your chance to get out.~You rolled yourself out of the cupboard and onto the counter below.~,NA,Room2
+action,open door,You're a bagel. You can't do that.,NA,NA
 exit,Room2

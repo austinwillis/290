@@ -5,7 +5,8 @@ public class Player {
 	private Room currentRoom;
 	private ArrayList<Item> items;
 	boolean GameOver;
-	
+	boolean Lose;
+
 	Player() {
 		this.currentRoom = new Room("StartingRoom");
 		this.items = new ArrayList<Item>();
@@ -92,6 +93,10 @@ public class Player {
 			}
 		}
 		if (action != null) {
+			if (action.getPerforms().equalsIgnoreCase("lose")) {
+				this.GameOver = true;
+				return action.getDescription() + "Would you like to quit (Y/N)?";
+			}
 			if (this.hasitem(action.getRequires()) || action.getRequires().equalsIgnoreCase("NA")) {
 				if (this.getCurrentRoom().hasexit(action.getPerforms())) {
 					String temp = this.getCurrentRoom().getRoomName();
@@ -158,7 +163,7 @@ public class Player {
 		for (Item each : this.getCurrentRoom().getItems()) {
 			if (each.getItemName().equalsIgnoreCase(string)) {
 				this.items.add(each);
-				return "You got " + string;
+				return "You got " + string + "\n" + each.getDescription();
 			}
 		}
 		return "That item isn't here";
