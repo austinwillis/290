@@ -1,7 +1,6 @@
-Erin
-Erin is my favorite person on the planet.
-But she is rude and steals donuts.
-Try going to Room2.
-item,Erin,Rude girl that steals donuts,required
-action,use Erin,She stole all of the donuts.,Erin,nothing
+Restroom
+You need to get out of this bathroom.
+This looks about like any other airplane bathroom.
+You could go through the door to see what is going on.
+action,use door,You opened the door and exited the restroom,NA,Room2
 exit,Room2

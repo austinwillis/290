@@ -1,7 +1,7 @@
-Room2
-This is the second room.
-This one came after the first room.
-There isn't anything to see here.
-item,name,description,required
+Coach
+Flying coach is never fun.
+You usually try to fly business or luck your way into first class,~but you weren't so lucky this time.
+The plane was pretty empty. Maybe everyone went up to business class.~Oh look! There's a key on the ground.
+item,key,I wonder what this key opens.,NA
 action,use name,This is a line of text~This is another line of text.,name,nothing
-exit,StartingRoom
+exit,Business
