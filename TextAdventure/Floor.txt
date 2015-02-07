@@ -1,0 +1,7 @@
+Floor
+This floor is gross. You don't want to touch that.|Somehow you have to get to the toaster from this skillet.
+If you don't have anything to use to get around, you'll just have to go for it.
+Maybe you have something you could use, or you could just try making a break for it.
+action|run|You bolted across the floor and made your way towards the counter with the toaster.~Even though you are a very fast bagel you couldn't get away from the ants.~That's how you get ants.|NA|lose
+action|climb|You don't see any way to get out of here and climb back up onto the cupboard|NA|Room2
+action|use plastic wrap|You quickly wrapped yourself in plastic and rolled across the room.~Soon enough you butted into the bottom of the counter right under the toaster.|plastic wrap|Floor2

@@ -61,7 +61,7 @@ public class Room {
 	}
 
 	private void parsestrings(String buffer) {
-		String[] tokens = buffer.split("[,]");
+		String[] tokens = buffer.split("[|]");
 		if (tokens[0].equals("item")) {
 			makeitem(tokens);
 		}

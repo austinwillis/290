@@ -1,7 +1,6 @@
 Cupboard
-You need to get out of this cupboard and get toasted.
-There has to be a toaster around here somewhere.
-You're in the cupboard. The door is closed and you need to get out.
-action,wait,Someone came and opened the door! This is your chance to get out.~You rolled yourself out of the cupboard and onto the counter below.~,NA,Room2
-action,open door,You're a bagel. You can't do that.,NA,NA
-exit,Room2
+You need to get out of this cupboard and toast yourself.
+That door looks too heavy for a bagel.~You may have to wait for someone to open the door.
+You're in the cupboard. The door is closed and you need to get out.~Maybe we should wait on it to open.
+action|wait|Someone came and opened the door! This is your chance to get out.~You rolled yourself out of the cupboard and onto the counter below.~|NA|Room2
+action|open door|You're a bagel. You can't do that.|NA|NA

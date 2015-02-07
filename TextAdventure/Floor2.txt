@@ -1,0 +1,6 @@
+Floor under the Toaster
+The toaster is right above you. See if you can get up there.
+We might need something else to climb up there.
+Maybe you missed something earlier.
+action|climb|Sticky from all the butter you got earlier, you rolled your way up the counter and pulled yourself up next to the toaster.|butter|Toaster
+exit|Floor

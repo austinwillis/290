@@ -95,17 +95,20 @@ public class Player {
 		if (action != null) {
 			if (action.getPerforms().equalsIgnoreCase("lose")) {
 				this.GameOver = true;
-				return action.getDescription() + "Would you like to quit (Y/N)?";
+				return action.getDescription() + "\nYou lost.\nWould you like to quit (Y/N)?";
 			}
-			if (this.hasitem(action.getRequires()) || action.getRequires().equalsIgnoreCase("NA")) {
-				if (this.getCurrentRoom().hasexit(action.getPerforms())) {
-					String temp = this.getCurrentRoom().getRoomName();
+			if (action.getPerforms().equalsIgnoreCase("lose")) {
+				this.currentRoom = new Room("StartingRoom");
+				this.GameOver = true;
+				return action.getDescription() + "\nYou won!\nWould you like to play again (Y/N)?";
+			}
+			if (action.getPerforms().equalsIgnoreCase("NA")) {
+				return action.getDescription() + "\nYou won!\nWould you like to play again (Y/N)?";
+			}
+			if (this.hasitem(action.getRequires())) {
 					this.setCurrentRoom(new Room(action.getPerforms()));
-					this.getCurrentRoom().addexit(temp);
 					return action.getDescription() + this.currentRoom.getRoomName() + "\n" 
 					+ this.getCurrentRoom().getShortdes();
-				}
-				else return action.getDescription();
 			}
 			else return "You don't have the item needed for this action.";
 		}

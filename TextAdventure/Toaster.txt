@@ -1,0 +1,7 @@
+Toaster
+You made it! Now just get in the toaster and toast yourself.
+Come on, do it.
+There's nothing to see here but a beautiful silver toaster.
+action|get in toaster|You climbed into the toaster and starting heating up.~After a couple minutes you can out a perfect golden brown.~Congratulations, you toasted yourself!|NA|win
+action|jump|Well you made it all the way here and you just throw it away at the end. Unbelievable|NA|lose
+action|wait|No use waiting now. You made it.|NA|NA

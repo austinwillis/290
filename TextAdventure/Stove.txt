@@ -1,0 +1,6 @@
+~Stove Top
+After getting across the sink you placed yourself on top of the stove.~Now you just need to make it around the corner to the toaster.
+Maybe we could do something with this stove.
+You could probably go to the dish washer and try to get over the refrigerator.
+exit|dishwasher
+action|turn on stove|You turned on the stove and it started heating up.~When it got hot you laid yourself down on the burners and started to toast.~Now you're toasted. Yum.|NA|win

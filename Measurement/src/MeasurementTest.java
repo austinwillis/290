@@ -13,28 +13,28 @@ public class MeasurementTest {
 		x = x.mult(y);
 		x = x.div(z);
 		x = x.div(z);
-		System.out.println(x.toString());
+		assertEquals(x.toString(),"12.0kgm/s^2");
 		Measurement r = new Measurement(3, "ft");
 		Measurement p = new Measurement(4, "lb");
-		System.out.println(r.mult(p).toString());
+		assertEquals(r.mult(p).toString(), "12.0ftlb");
 		Measurement q = new Measurement(9.8, "m");
 		Measurement l = new Measurement(10, "s");
 		q = q.div(z);
 		q = q.div(z);
 		q = q.mult(l);
-		System.out.println(q.toString());
+		assertEquals(q.toString(), "98.0m/s");
 		q = new Measurement(4, "in");
 		q = q.mult(q);
 		q = q.mult(q);
 		q = q.mult(q);
 		q = q.mult(q);
 		q = q.mult(q);
-		System.out.println(q.toString());
+		assertEquals(q.toString(), "1.8446744073709552E19in^32");
 		q = new Measurement(1, "in");
 		x = new Measurement(1, "in");
 		x = x.mult(x);
 		x = x.mult(x);
 		q = q.div(x);
-		System.out.println(q);
+		assertEquals(q.toString(), "1.0/in^3");
 	}
 }

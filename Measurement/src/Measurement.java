@@ -47,13 +47,10 @@ public class Measurement {
 	}
 	
 	private Measurement(double value, ArrayList<String> num, ArrayList<String> denom) {
-		ArrayList<String> newnum = new ArrayList<String>();
-		newnum = simplifynum(num, denom);
-		ArrayList<String> newdenom = new ArrayList<String>();
-		newdenom = simplifydenom(num, denom);
+		simplify(num, denom);
 		this.setValue(value);
-		this.setNum(newnum);
-		this.setDenom(newdenom);
+		this.setNum(num);
+		this.setDenom(denom);
 	}
 	
 	public Measurement add(Measurement x) {
@@ -89,7 +86,7 @@ public class Measurement {
 		return s;
 	}
 
-	private ArrayList<String> simplifynum(ArrayList<String> num2, ArrayList<String> denom2) {
+	private void simplify(ArrayList<String> num2, ArrayList<String> denom2) {
 		String temp;
 		for (int i = 0; i < num2.size(); i++) {
 			temp = num2.get(i);
@@ -97,19 +94,7 @@ public class Measurement {
 					num2.remove(temp);
 			}
 		}
-		return num2;
 	}
-	
-	private ArrayList<String> simplifydenom(ArrayList<String> num2, ArrayList<String> denom2) {
-		String temp;
-		for (int i = 0; i < num2.size(); i++) {
-			temp = num2.get(i);
-				if (denom2.remove(temp)) {
-					num2.remove(temp);
-			}
-		}
-		return denom2;
-	}	
 
 	private String unitToString(ArrayList<String> listofString) {
 		String output = new String();

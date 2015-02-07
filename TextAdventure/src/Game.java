@@ -10,9 +10,9 @@ import javax.swing.JTextField;
 
 
 public class Game implements ActionListener {
-	private static JTextArea A = new JTextArea("Welcome to a I am bagel.\n\n"
-			+ "You are bagel. You need to toast yourself.\n", 15, 40);
-	private JTextField T = new JTextField(30);
+	private static JTextArea A = new JTextArea("Welcome to I am bagel.\n\n"
+			+ "You are bagel. You need to toast yourself.\n", 20, 50);
+	private JTextField T = new JTextField(35);
 	private JFrame frame = new JFrame("I am bagel");
 	
 	static Player player;
@@ -28,7 +28,7 @@ public class Game implements ActionListener {
 		
 		
 		frame.setLayout(new FlowLayout());
-		frame.setSize(500, 325);
+		frame.setSize(700, 525);
 		frame.setVisible(true);
 		
 		JScrollPane scroll = new JScrollPane (A);

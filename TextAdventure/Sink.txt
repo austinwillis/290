@@ -1,0 +1,9 @@
+Sink
+Stay away from that water. No one likes wet bread.
+There are some things around you that might be able to help.
+There's a pile of chopsticks and skillet next to you. Maybe they could be of some use.
+action|wait|What are you waiting around for? Get to the toaster!|NA|NA
+item|chopstick|No one knows how to eat with these. Maybe we could do something else with it|NA
+action|use chopstick|You wielded your chopstick and planted it into the side of the sink,~vaulting yourself to the other side.|chopstick|Stove
+action|get in skillet|You hoisted yourself into the skillet and it teetered off the edge of the counter.|NA|Floor
+action|swim|Now you're soggy. Gross. You can't put that in a toaster.|NA|lose

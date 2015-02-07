@@ -1,7 +1,9 @@
-Counter Top
+~Counter Top
 You can see the toaster on the other half of the room.~You should be there in no time.
 There are many dangers ahead but the journey will be worthwhile. Maybe we can find some cream cheese on the way.
-We are going to have to go across the sink to get there.~Unless you have other ideas.
-item,butter,Now you look delicious.,NA
-action,jump,You took a leap of faith and threw yourself off the counter top. You landed in a large bowl labeled chomp.~Sure enough chomp came right away and you became dog food.,NA,lose
-exit,StartingRoom
+You are going to have to go across the sink to get there.~There's some plastic wrap here; it might be useful. 
+item|butter|Now you look delicious.|NA
+item|plastic wrap|This plastic wrap can keep you from getting dirty.
+action|jump|You took a leap of faith and threw yourself off the counter top.~You landed in a large bowl labeled Chomp.~Sure enough Chomp came right away and you became dog food.~|NA|lose
+action|wait|That isn't going to do you any good.|NA|NA
+action|roll|You flipped yourself over and rolled your way toward the sink.~Being careful not to fall in you spun to a stop at the edge of the sink.|NA|Sink

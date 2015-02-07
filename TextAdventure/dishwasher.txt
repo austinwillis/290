@@ -1,0 +1,5 @@
+Dishwasher
+Now you're resting on top of the dishwasher.~The toaster is just on the other side of this refrigerator.
+Maybe there's something we can do with that refrigerator.
+The door on the refrigerator is wide open. You might be able to use that to get over there.
+action|swing on door|You threw yourself into the refrigerator door and swung around, flinging yourself onto the counter right next to the toaster.|NA|Toaster
