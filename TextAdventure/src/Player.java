@@ -6,6 +6,7 @@ public class Player {
 	private ArrayList<Item> items;
 	boolean GameOver;
 	boolean Lose;
+	private boolean Win;
 
 	Player() {
 		this.currentRoom = new Room("StartingRoom");
@@ -38,6 +39,16 @@ public class Player {
 			else if (input.equalsIgnoreCase("n")) {
 				this.GameOver = false;
 				return "Keep Playing.";
+			}
+			else return "Enter Y or N";
+		}
+		if (this.Win) {
+			if (input.equalsIgnoreCase("y")) {
+				this.Win = false;
+				return "Play Again\n\n" + this.getCurrentRoom().getRoomName() + "\n" + this.getCurrentRoom().getShortdes();
+			}
+			else if (input.equalsIgnoreCase("n")) {
+				return "END";
 			}
 			else return "Enter Y or N";
 		}
@@ -97,15 +108,15 @@ public class Player {
 				this.GameOver = true;
 				return action.getDescription() + "\nYou lost.\nWould you like to quit (Y/N)?";
 			}
-			if (action.getPerforms().equalsIgnoreCase("lose")) {
+			if (action.getPerforms().equalsIgnoreCase("win")) {
 				this.currentRoom = new Room("StartingRoom");
-				this.GameOver = true;
+				this.Win = true;
 				return action.getDescription() + "\nYou won!\nWould you like to play again (Y/N)?";
 			}
 			if (action.getPerforms().equalsIgnoreCase("NA")) {
 				return action.getDescription() + "\nYou won!\nWould you like to play again (Y/N)?";
 			}
-			if (this.hasitem(action.getRequires())) {
+			if (this.hasitem(action.getRequires()) || action.getRequires().equals("NA")) {
 					this.setCurrentRoom(new Room(action.getPerforms()));
 					return action.getDescription() + this.currentRoom.getRoomName() + "\n" 
 					+ this.getCurrentRoom().getShortdes();
