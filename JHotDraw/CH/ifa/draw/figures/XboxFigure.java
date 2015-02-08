@@ -2,33 +2,13 @@ package CH.ifa.draw.figures;
 
 import java.awt.Graphics;
 import java.awt.Point;
-import java.awt.Rectangle;
-
-import javafx.scene.shape.Line;
 
 public class XboxFigure extends RectangleFigure{
-
-	/**
-	 * 
-	 */
 	
 	private LineFigure fdisplLine1;
 	private LineFigure fdisplLine2;
 	
 	private static final long serialVersionUID = 1L;
-	public XboxFigure() {
-		super();
-		fdisplLine1 = new LineFigure();
-		fdisplLine2 = new LineFigure();
-	}
-	
-	public XboxFigure(Point origin, Point corner) {
-		super(origin,corner);
-		fdisplLine1.addPoint(origin.x, origin.y);
-		fdisplLine1.addPoint(corner.x, corner.y);
-		fdisplLine2.addPoint(origin.x, corner.y);
-		fdisplLine2.addPoint(corner.x, origin.y);
-	}
 	
 	public void draw(Graphics g) {
 		super.draw(g);
