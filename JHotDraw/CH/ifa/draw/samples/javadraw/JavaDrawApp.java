@@ -69,6 +69,9 @@ public  class JavaDrawApp extends MDI_DrawApplication {
 
 		tool = new UndoableTool(new CreationTool(this, new RectangleFigure()));
 		palette.add(createToolButton(IMAGES + "RECT", "Rectangle Tool", tool));
+		
+		tool = new UndoableTool(new CreationTool(this, new XboxFigure()));
+		palette.add(createToolButton(IMAGES + "RECT", "Xbox Tool", tool));
 	
 		tool = new UndoableTool(new CreationTool(this, new RoundRectangleFigure()));
 		palette.add(createToolButton(IMAGES + "RRECT", "Round Rectangle Tool", tool));
