@@ -77,6 +77,7 @@ public class CheckerBoard {
 			this.spaces[m.inputrow][m.inputcolumn] = new Piece(m.inputcolumn, m.inputrow);
 		}
 		this.spaces[m.outputrow][m.outputcolumn].checkking();
+		System.out.println("");
 		System.out.println(this);
 		return true;
 		}
