@@ -38,4 +38,9 @@ public class Piece {
 			return null;
 		}
 
+		public void setmoved() {
+			moved = true;
+			
+		}
+
 }

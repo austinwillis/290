@@ -61,14 +61,21 @@ Piece [][] spaces = new Piece[8][8];
 
 	public boolean move(int player, Move m) {
 		ArrayList<Move> moves = new ArrayList<Move>(); 
-		this.generatemoves(player);
+		moves.addAll(this.generatemoves(player));
 		if (hasmove(moves, m)) {
-		System.out.println("");
+		this.performmove(m);
 		System.out.println(this);
 		return true;
 		}
 		else return false;
 		
+	}
+
+
+	private void performmove(Move m) {
+		this.spaces[m.outputrow][m.outputcolumn] = this.spaces[m.inputrow][m.inputcolumn];
+		this.spaces[m.inputrow][m.inputcolumn].setmoved();
+		this.spaces[m.inputrow][m.inputcolumn] = new Piece();
 	}
 
 
