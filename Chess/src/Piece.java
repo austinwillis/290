@@ -1,46 +1,53 @@
-import java.util.ArrayList;
-
+import java.util.HashSet;
 
 public class Piece {
 
-		protected int row;
-		protected int column;
-		protected int color;
-		boolean moved;
-		
-		public Piece() {
-			color = 0;
-		}
-		
-		public Piece(int i, int j) {
-			color = 0;
-			column = i;
-			row = j;
-		}
-		
-		public Piece(int j, int i, int player) {
-			column = i;
-			row = j;
-			color = player;
-			moved = false;
-		}
-		
-		int getcolor() {
-			return color;
-		}
-		
-		
-		public String toString() {
-			return ".";
-		}
+	protected int row;
+	protected int column;
+	protected int color;
+	boolean moved;
 
-		public ArrayList<Move> addmoves(ChessBoard chessBoard) {
-			return null;
-		}
+	public Piece() {
+		color = 0;
+	}
 
-		public void setmoved() {
-			moved = true;
-			
-		}
+	public Piece(int i, int j) {
+		color = 0;
+		column = i;
+		row = j;
+	}
+	
+	public boolean isking() {
+		return false;
+	}
+
+	public Piece(int j, int i, int player) {
+		column = i;
+		row = j;
+		color = player;
+		moved = false;
+	}
+
+	int getcolor() {
+		return color;
+	}
+
+	public String toString() {
+		return ".";
+	}
+
+	public HashSet<Move> addmoves(ChessBoard chessBoard) {
+		return null;
+	}
+
+	public void setmoved() {
+		moved = true;
+
+	}
+
+	public void setNewLocation(Move m) {
+		this.row = m.outputrow;
+		this.column = m.outputcolumn;
+	}
 
 }

@@ -1,3 +1,4 @@
+import java.util.HashSet;
 
 public class Move {
 
@@ -5,21 +6,27 @@ public class Move {
 	protected int inputrow;
 	protected int outputcolumn;
 	protected int outputrow;
-	
+	protected boolean castle;
+
 	public Move(int x, int y, int z, int r) {
 		this.inputcolumn = x;
 		this.inputrow = y;
 		this.outputcolumn = z;
 		this.outputrow = r;
+		this.castle = false;
+	}
+
+	public Move(int column, int row, int i, int j, boolean b) {
+		this(column, row, i, j);
+		this.castle = true;
 	}
 
 	boolean equals(Move x) {
-		return (this.inputcolumn == x.inputcolumn &&
-				this.inputrow == x.inputrow &&
-				this.outputcolumn == x.outputcolumn &&
-				this.outputrow == x.outputrow);
+		return (this.inputcolumn == x.inputcolumn
+				&& this.inputrow == x.inputrow
+				&& this.outputcolumn == x.outputcolumn && this.outputrow == x.outputrow);
 	}
-	
+
 	public String toString() {
 		char inputchar;
 		char outputchar;
