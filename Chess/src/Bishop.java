@@ -2,8 +2,15 @@ import java.util.HashSet;
 
 public class Bishop extends Piece {
 
+	public int row;
+	public int column;
+	public int color;
+	public boolean moved;
+	
 	public Bishop(int i, int j, int k) {
-		super(i, j, k);
+		column = i;
+		row = j;
+		color = k;
 	}
 
 	public String toString() {
@@ -20,10 +27,10 @@ public class Bishop extends Piece {
 		while (newrow < 7 && newcolumn < 7) {
 			newrow ++;
 			newcolumn++;
-			if (chessBoard.spaces[newrow][newcolumn].color != this.color) {
+			if (chessBoard.spaces[newrow][newcolumn].getcolor() != this.color) {
 				moves.add(new Move(column, row, newcolumn, newrow));
 			}
-			if (chessBoard.spaces[newrow][newcolumn].color != 0)
+			if (chessBoard.spaces[newrow][newcolumn].getcolor() != 0)
 				break;
 		}
 		newrow = row;
@@ -31,10 +38,10 @@ public class Bishop extends Piece {
 		while (newrow > 0 && newcolumn < 7) {
 			newrow --;
 			newcolumn++;
-			if (chessBoard.spaces[newrow][newcolumn].color != this.color) {
+			if (chessBoard.spaces[newrow][newcolumn].getcolor() != this.color) {
 				moves.add(new Move(column, row, newcolumn, newrow));
 			}
-			if (chessBoard.spaces[newrow][newcolumn].color != 0)
+			if (chessBoard.spaces[newrow][newcolumn].getcolor() != 0)
 				break;
 		}
 		newrow = row;
@@ -42,10 +49,10 @@ public class Bishop extends Piece {
 		while (newrow > 0 && newcolumn > 0) {
 			newrow --;
 			newcolumn--;
-			if (chessBoard.spaces[newrow][newcolumn].color != this.color) {
+			if (chessBoard.spaces[newrow][newcolumn].getcolor() != this.color) {
 				moves.add(new Move(column, row, newcolumn, newrow));
 			}
-			if (chessBoard.spaces[newrow][newcolumn].color != 0)
+			if (chessBoard.spaces[newrow][newcolumn].getcolor() != 0)
 				break;
 		}
 		newrow = row;
@@ -53,13 +60,44 @@ public class Bishop extends Piece {
 		while (newrow < 7 && newcolumn > 0) {
 			newrow ++;
 			newcolumn--;
-			if (chessBoard.spaces[newrow][newcolumn].color != this.color) {
+			if (chessBoard.spaces[newrow][newcolumn].getcolor() != this.color) {
 				moves.add(new Move(column, row, newcolumn, newrow));
 			}
-			if (chessBoard.spaces[newrow][newcolumn].color != 0)
+			if (chessBoard.spaces[newrow][newcolumn].getcolor() != 0)
 				break;
 		}
 		return moves;
+	}
+
+	@Override
+	public boolean isking() {
+		return false;
+	}
+
+	@Override
+	public int getcolor() {
+		return color;
+	}
+
+	@Override
+	public void setmoved() {
+		moved = true;
+	}
+
+	@Override
+	public void setNewLocation(Move m) {
+		row = m.outputrow;
+		column = m.outputcolumn;
+	}
+	
+	@Override
+	public boolean hasmoved() {
+		return moved;
+	}
+	
+	@Override
+	public boolean Movable() {
+		return movable;
 	}
 
 }

@@ -1,53 +1,37 @@
 import java.util.HashSet;
 
-public class Piece {
-
-	protected int row;
-	protected int column;
-	protected int color;
-	boolean moved;
-
-	public Piece() {
-		color = 0;
-	}
-
-	public Piece(int i, int j) {
-		color = 0;
-		column = i;
-		row = j;
-	}
+abstract class Piece {
 	
-	public boolean isking() {
-		return false;
-	}
-
-	public Piece(int j, int i, int player) {
+	public int row;
+	public int column;
+	public int color;
+	public boolean moved;
+	
+	public Piece(int i, int j, int player) {
 		column = i;
 		row = j;
 		color = player;
-		moved = false;
 	}
+	
+	public abstract boolean isking();
 
-	int getcolor() {
-		return color;
-	}
+	abstract int getcolor();
 
-	public String toString() {
-		return ".";
-	}
+	public abstract String toString();
 
-	public HashSet<Move> addmoves(ChessBoard chessBoard) {
-		return null;
-	}
+	abstract HashSet<Move> addmoves(ChessBoard chessBoard);
 
 	public void setmoved() {
 		moved = true;
-
 	}
 
 	public void setNewLocation(Move m) {
-		this.row = m.outputrow;
-		this.column = m.outputcolumn;
+		row = m.outputrow;
+		column = m.outputcolumn;
 	}
+	
+	public abstract boolean hasmoved();
+	
+	public abstract boolean Movable();
 
 }

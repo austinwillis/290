@@ -2,47 +2,40 @@ import java.util.HashSet;
 
 public class ChessBoard implements Cloneable{
 
-	Piece[][] spaces = new Piece[8][8];
+	HashSet<Piece> pieces = new HashSet<>();
 
 	public ChessBoard() {
-		spaces[0][0] = new Rook(0, 0, 2);
-		spaces[0][7] = new Rook(7, 0, 2);
-		spaces[0][1] = new Knight(1, 0, 2);
-		spaces[0][6] = new Knight(6, 0, 2);
-		spaces[0][2] = new Bishop(2, 0, 2);
-		spaces[0][5] = new Bishop(5, 0, 2);
-		spaces[0][4] = new King(4, 0, 2);
-		spaces[0][3] = new Queen(3, 0, 2);
+		pieces.add(new Rook(0, 0, 2));
+		pieces.add(new Rook(7, 0, 2));
+		pieces.add(new Knight(1, 0, 2));
+		pieces.add(new Knight(6, 0, 2));
+		pieces.add(new Bishop(2, 0, 2));
+		pieces.add(new Bishop(5, 0, 2));
+		pieces.add(new King(4, 0, 2));
+		pieces.add(new Queen(3, 0, 2));
 		for (int i = 0; i < 8; i++) {
-			spaces[1][i] = new Pawn(i, 1, 2);
+			pieces.add(new Pawn(i, 6, 1));
 		}
-		for (int i = 2; i < 6; i++) {
-			for (int j = 0; j < 8; j++) {
-				spaces[i][j] = new Piece(j, i);
-			}
-		}
-		spaces[7][0] = new Rook(0, 7, 1);
-		spaces[7][7] = new Rook(7, 7, 1);
-		spaces[7][1] = new Knight(1, 7, 1);
-		spaces[7][6] = new Knight(6, 7, 1);
-		spaces[7][2] = new Bishop(2, 7, 1);
-		spaces[7][5] = new Bishop(5, 7, 1);
-		spaces[7][4] = new King(3, 7, 1);
-		spaces[7][3] = new Queen(4, 7, 1);
+		pieces.add(new Rook(0, 7, 1));
+		pieces.add(new Rook(7, 7, 1));
+		pieces.add(new Knight(1, 7, 1));
+		pieces.add(new Knight(6, 7, 1));
+		pieces.add(new Bishop(2, 7, 1));
+		pieces.add(new Bishop(5, 7, 1));
+		pieces.add(new King(3, 7, 1));
+		pieces.add(new Queen(4, 7, 1));
 		for (int i = 0; i < 8; i++) {
-			spaces[6][i] = new Pawn(i, 6, 1);
+			pieces.add(new Pawn(i, 6, 1));
 		}
 	}
 	
-	public ChessBoard(Piece[][] spaces2) {
-		for (int i = 0; i < 8; i++)
-			for (int j =0; j < 8; j++)
-				this.spaces[i][j] = spaces2[i][j];
+	public ChessBoard(HashSet<Piece> spaces2) {
+		pieces = new HashSet<>();
+		pieces.addAll(spaces2);
 	}
 
 	public ChessBoard clone() {
-		ChessBoard board = new ChessBoard(this.spaces);
-		return board;
+		return new ChessBoard(pieces);
 	}
 
 	public String toString() {
@@ -51,8 +44,8 @@ public class ChessBoard implements Cloneable{
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
 				if (j == 0)
-					output.append(i + 1 + "  ");
-				output.append(spaces[i][j].toString());
+					output.append(8 - i + "  ");
+				output.append(this.printPiece(i, j));
 				if (j < 7)
 					output.append("  ");
 				else
@@ -65,12 +58,19 @@ public class ChessBoard implements Cloneable{
 
 	}
 
+	private String printPiece(int i, int j) {
+		for (Piece each : pieces) {
+			if (each.row == i && each.column == j)
+				return each.toString();
+		}
+		return ".";
+	}
+
 	public boolean move(int player, Move m) {
 		HashSet<Move> moves = new HashSet<Move>();
 		moves.addAll(cancelcheck(player));
 		if (hasmove(moves, m)) {
 			this.performmove(m);
-			System.out.println(this);
 			return true;
 		} else
 			return false;
@@ -81,10 +81,10 @@ public class ChessBoard implements Cloneable{
 		if (m.castle) {
 
 		} else {
-			this.spaces[m.outputrow][m.outputcolumn] = this.spaces[m.inputrow][m.inputcolumn];
-			this.spaces[m.outputrow][m.outputcolumn].setmoved();
-			this.spaces[m.outputrow][m.outputcolumn].setNewLocation(m);
-			this.spaces[m.inputrow][m.inputcolumn] = new Piece();
+			if (this.pieceat(m.outputrow, m.outputcolumn) != null)
+				pieces.remove(this.pieceat(m.outputrow,  m.outputcolumn));
+			this.pieceat(m.inputcolumn, m.inputrow).setNewLocation(m);
+			this.pieceat(m.inputcolumn, m.inputrow).setmoved();
 		}
 	}
 
@@ -101,8 +101,8 @@ public class ChessBoard implements Cloneable{
 		HashSet<Move> moves = new HashSet<Move>();
 		for (int i = 0; i < 8; i++) {
 			for (int j = 0; j < 8; j++) {
-				if (this.spaces[i][j].color == player & this.spaces[i][j].color != 0) {
-					moves.addAll(spaces[i][j].addmoves(this));
+				if (this.pieceat(j, i).getcolor() == player & this.pieceat(j, i).Movable()) {
+					moves.addAll(this.pieceat(j, i).addmoves(this));
 				}
 			}
 		}
@@ -116,7 +116,8 @@ public class ChessBoard implements Cloneable{
 		HashSet<Move> newset = new HashSet<>();
 		for (Move each : moves) {
 			ChessBoard test = this.clone();
-			test.performmove(each);
+			Move testmove = each.clone();
+			test.performmove(testmove);
 			if (test.check(p)) {
 				
 			} else
@@ -126,7 +127,7 @@ public class ChessBoard implements Cloneable{
 	}
 	
 	private int changeplayer(int player) {
-		if (player % 2 == 0)
+		if (player == 1)
 			return 2;
 		else
 			return 1;
@@ -141,10 +142,18 @@ public class ChessBoard implements Cloneable{
 	public boolean check(int player) {
 		HashSet<Move> mvs = this.generatemoves(player);
 		for (Move each : mvs)
-			if (spaces[each.outputrow][each.outputcolumn].color != player 
-			& spaces[each.outputrow][each.outputcolumn].color != 0 & spaces[each.outputrow][each.outputcolumn].isking())
+			if (this.pieceat(each.outputcolumn, each.outputrow).isking())
 				return true;
 		return false;
+	}
+
+	public Piece pieceat(int column, int i) {
+		for (Piece each : pieces) {
+			if (each.row == i && each.column == column) {
+				return each;
+			}
+		}
+		return null;
 	}
 
 }

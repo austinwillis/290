@@ -1,6 +1,4 @@
-import java.util.HashSet;
-
-public class Move {
+public class Move implements Cloneable {
 
 	protected int inputcolumn;
 	protected int inputrow;
@@ -13,7 +11,11 @@ public class Move {
 		this.inputrow = y;
 		this.outputcolumn = z;
 		this.outputrow = r;
-		this.castle = false;
+		this.castle = false;	
+	}
+	
+	public Move clone() {
+		return new Move(this);
 	}
 
 	public Move(int column, int row, int i, int j, boolean b) {
@@ -21,6 +23,13 @@ public class Move {
 		this.castle = true;
 	}
 
+	public Move(Move move) {
+		this.inputcolumn = move.inputcolumn;
+		this.outputcolumn = move.outputcolumn;
+		this.inputrow = move.inputrow;
+		this.outputrow = move.outputrow;
+		this.castle = move.castle;
+	}
 	boolean equals(Move x) {
 		return (this.inputcolumn == x.inputcolumn
 				&& this.inputrow == x.inputrow
@@ -34,10 +43,10 @@ public class Move {
 		outputchar = (char) (outputcolumn + 97);
 		String output = new String();
 		output += inputchar;
-		output += inputrow + 1;
+		output += 8 - inputrow;
 		output += "-";
 		output += outputchar;
-		output += outputrow + 1;
+		output += 8 - outputrow;
 		return output;
 	}
 }

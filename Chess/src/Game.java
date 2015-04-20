@@ -2,41 +2,53 @@ import java.util.Scanner;
 
 public class Game {
 
-	public static void main(String[] args) {
+	private ChessBoard board;
+	
+	private Game() {
+		board = new ChessBoard();
+	}
+	
+	public static void main(String args[])  {
+		Game g = new Game();
+		g.rungame();
+	}
+	
+	private void rungame() {
 		System.out.println("Welcome to Chess.");
 		System.out.println("Example move: a4-b5");
-		ChessBoard board = new ChessBoard();
-		System.out.println(board);
 		int currentPlayer = 1;
 		String s = null;
+		ChessBoard boardstate = new ChessBoard();
 		Scanner in = new Scanner(System.in);
 		int inputrow = 0, inputcolumn = 0, outputrow = 0, outputcolumn = 0;
 
 		boolean win = false;
 		while (!win) {
-			System.out.print("Player " + currentPlayer + "'s turn:");
+			boardstate = board;
 			boolean inputfail = true;
 			while (inputfail) {
+				System.out.println(board);
+				System.out.print("Player " + currentPlayer + "'s turn:");
 				s = in.nextLine();
 				if (s.equals("help")) {
-					for (Move each : board.cancelcheck(currentPlayer)) {
+					for (Move each : boardstate.cancelcheck(currentPlayer)) {
 						System.out.println(each);
 					}
 				} else {
 				if (parseinput(currentPlayer, s, inputrow, inputcolumn,
-						outputrow, outputcolumn, board, in)) {
+						outputrow, outputcolumn, boardstate, in)) {
 					inputfail = false;
+					board = boardstate;
 				}
 				else {
-					for (Move each : board.cancelcheck(currentPlayer)) {
+					for (Move each : boardstate.cancelcheck(currentPlayer)) {
 						System.out.println(each);
 					}
-					System.out.println("Not a legal move. Try agiain: ");
+					System.out.println("Not a legal move. Try again: ");
 				}
 				s = new String();
 				}
 			}
-			currentPlayer = (currentPlayer + 1);
 			currentPlayer = changeplayer(currentPlayer);
 			
 			win = board.checkwin(currentPlayer);
@@ -45,13 +57,13 @@ public class Game {
 			if (win) {
 				System.out.println("Player " + currentPlayer + " wins!");
 				System.out.println("Player " + currentPlayer + " wins!");
-				break;
+				win = true;
 			}
 		}
 		in.close();
 	}
 
-	private static boolean parseinput(int currentPlayer, String s,
+	private boolean parseinput(int currentPlayer, String s,
 			int inputrow, int inputcolumn, int outputrow, int outputcolumn,
 			ChessBoard board, Scanner in) {
 		String[] chars = s.split("-");
@@ -65,8 +77,8 @@ public class Game {
 				inputcolumn = inputrowchar - 97;
 
 				try {
-					inputrow = Integer.parseInt(chars[0].substring(1,
-							input.length())) - 1;
+					inputrow = 8 - Integer.parseInt(chars[0].substring(1,
+							input.length()));
 				} catch (NumberFormatException nfe) {
 					inputrow = -1;
 				}
@@ -77,8 +89,8 @@ public class Game {
 				outputcolumn = inputrowchar - 97;
 
 				try {
-					outputrow = Integer.parseInt(chars[1].substring(1,
-							input.length())) - 1;
+					outputrow = 8 - Integer.parseInt(chars[1].substring(1,
+							input.length()));
 				} catch (NumberFormatException nfe) {
 					outputrow = -1;
 				}
@@ -87,6 +99,7 @@ public class Game {
 				&& inputcolumn > -1 && outputrow < 8 && outputrow > -1
 				&& outputcolumn < 8 && outputcolumn > -1) {
 			Move m = new Move(inputcolumn, inputrow, outputcolumn, outputrow);
+			System.out.println(m);
 			if (board.move(currentPlayer, m)) {
 				return true;
 			}
@@ -94,8 +107,8 @@ public class Game {
 		return false;
 	}
 	
-	public static int changeplayer(int p) {
-		if (p % 2 == 0)
+	public int changeplayer(int p) {
+		if (p == 1)
 			return 2;
 		else
 			return 1;
