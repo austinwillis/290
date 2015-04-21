@@ -109,7 +109,10 @@ public class ChessBoard implements Cloneable {
 		HashSet<Move> newmoves = new HashSet<>();
 		for (Move each : moves)
 			if (testmove(each, player))
-				newmoves.add(each);
+				if (each.castle) {
+					if (!playerincheck(player))
+						newmoves.add(each);
+				} else newmoves.add(each);
 		return newmoves;
 	}
 
