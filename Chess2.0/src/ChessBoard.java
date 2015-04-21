@@ -124,28 +124,41 @@ public class ChessBoard implements Cloneable {
 
 	public void performmove(Move m, int player) {
 		if (m.castle) {
-			
+			if (m.endLoc.column - m.startLoc.column == 2) {
+				this.performmove(new Move(m.startLoc, m.endLoc), player);
+				this.performmove(new Move(new Location(m.startLoc.row,
+						m.endLoc.column + 3), new Location(m.startLoc.row,
+						m.endLoc.column + 1)), player);
+			} else {
+				if (m.endLoc.column - m.startLoc.column == -2) {
+					this.performmove(new Move(m.startLoc, m.endLoc), player);
+					this.performmove(new Move(new Location(m.startLoc.row,
+							m.endLoc.column - 3), new Location(m.startLoc.row,
+							m.endLoc.column - 1)), player);
+
+				}
+			}
 		} else {
-		if (player == 1) {
-			if (player2pieceat(m.endLoc))
-				removep2loc(m.endLoc);
-			for (Piece each : Player1pieces) {
-				if (each.L.toString().equals(m.startLoc.toString())) {
-					each.setNewLocation(m.endLoc);
-					each.setmoved();
+			if (player == 1) {
+				if (player2pieceat(m.endLoc))
+					removep2loc(m.endLoc);
+				for (Piece each : Player1pieces) {
+					if (each.L.toString().equals(m.startLoc.toString())) {
+						each.setNewLocation(m.endLoc);
+						each.setmoved();
+					}
 				}
 			}
-		}
-		if (player == 2) {
-			if (player1pieceat(m.endLoc))
-				removep1loc(m.endLoc);
-			for (Piece each : Player2pieces) {
-				if (each.L.toString().equals(m.startLoc.toString())) {
-					each.setNewLocation(m.endLoc);
-					each.setmoved();
+			if (player == 2) {
+				if (player1pieceat(m.endLoc))
+					removep1loc(m.endLoc);
+				for (Piece each : Player2pieces) {
+					if (each.L.toString().equals(m.startLoc.toString())) {
+						each.setNewLocation(m.endLoc);
+						each.setmoved();
+					}
 				}
 			}
-		}
 		}
 	}
 
