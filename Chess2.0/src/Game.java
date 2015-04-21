@@ -31,7 +31,6 @@ public class Game {
 						System.out.println(each);
 				}
 				m = parseinput(s);
-				System.out.println(m);
 				if (m != null && hasmove(m)) {
 					input = true;
 					board.performmove(m, player);

@@ -79,14 +79,11 @@ public class ChessBoard implements Cloneable {
 		HashSet<Move> moves = new HashSet<>();
 		if (player == 1) {
 			for (Piece each : Player1pieces) {
-				moves.addAll(each.generatemoves(this,
-						player));
+				moves.addAll(each.generatemoves(this, player));
 			}
-		}
-		else {
+		} else {
 			for (Piece each : Player2pieces) {
-				moves.addAll(each.generatemoves(this,
-						player));
+				moves.addAll(each.generatemoves(this, player));
 			}
 		}
 		return moves;
@@ -101,40 +98,42 @@ public class ChessBoard implements Cloneable {
 		if (player == 1) {
 			if (player2pieceat(m.endLoc))
 				removep2loc(m.endLoc);
-		for (Piece each : Player1pieces) {
-			if (each.L.equals(m.startLoc)) {
-				each.setNewLocation(m.endLoc);
-				each.setmoved();
+			for (Piece each : Player1pieces) {
+				if (each.L.equals(m.startLoc)) {
+					each.setNewLocation(m.endLoc);
+					each.setmoved();
+				}
 			}
-		}
 		}
 		if (player == 2) {
 			if (player1pieceat(m.endLoc))
 				removep1loc(m.endLoc);
-		for (Piece each : Player2pieces) {
-			if (each.L.equals(m.startLoc)) {
-				each.setNewLocation(m.endLoc);
-				each.setmoved();
+			for (Piece each : Player2pieces) {
+				if (each.L.equals(m.startLoc)) {
+					each.setNewLocation(m.endLoc);
+					each.setmoved();
+				}
 			}
-		}
 		}
 	}
 
 	private void removep1loc(Location endLoc) {
-		for (java.util.Iterator<Piece> i = Player1pieces.iterator(); i.hasNext();) {
-		    Piece element = i.next();
-		    if (element.L.equals(endLoc)) {
-		        i.remove();
-		    }
+		for (java.util.Iterator<Piece> i = Player1pieces.iterator(); i
+				.hasNext();) {
+			Piece element = i.next();
+			if (element.L.equals(endLoc)) {
+				i.remove();
+			}
 		}
 	}
 
 	private void removep2loc(Location endLoc) {
-		for (java.util.Iterator<Piece> i = Player2pieces.iterator(); i.hasNext();) {
-		    Piece element = i.next();
-		    if (element.L.equals(endLoc)) {
-		        i.remove();
-		    }
+		for (java.util.Iterator<Piece> i = Player2pieces.iterator(); i
+				.hasNext();) {
+			Piece element = i.next();
+			if (element.L.equals(endLoc)) {
+				i.remove();
+			}
 		}
 	}
 
