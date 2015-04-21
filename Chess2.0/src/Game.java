@@ -20,31 +20,46 @@ public class Game {
 		String s = null;
 		Scanner in = new Scanner(System.in);
 		Move m;
+		ChessBoard testboard;
+		boolean check = false;
+		int p;
 		while (!win) {
+			testboard = board.clone();
 			moves = board.generatemoves(player);
+			moves = testboard.removebadmove(moves, player);
+			if (check) {
+				if (moves.size() == 0) {
+					p = changeplayer(player);
+					System.out.println("CheckMate! Player " + p + " wins!");
+					System.out.println(board);
+					break;
+				}
+				System.out.println("Check!");
+			}
 			while (!input) {
 				System.out.println(board);
 				System.out.print("Player " + player + "'s turn: ");
 				s = in.nextLine();
 				if (s.equals("help")) {
+					System.out.println("Possible Moves: ");
 					for (Move each : moves)
 						System.out.println(each);
 				}
 				m = parseinput(s);
 				if (m != null && hasmove(m)) {
-					input = true;
 					board.performmove(m, player);
+					board.checkpawns(player);
+					input = true;
 				} else {
 					System.out.println("Not a legal move, try again.");
 				}
 			}
 			input = false;
-			if (board.checkwin(player)) {
-				System.out.println("Checkmate!");
-				System.out.println("Player " + player + " wins!");
-				win = true;
-			}
 			player = changeplayer(player);
+			if (board.playerincheck(player)) {
+				check = true;
+			} else
+				check = false;
 		}
 		in.close();
 	}

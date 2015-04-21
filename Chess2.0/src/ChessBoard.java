@@ -23,8 +23,8 @@ public class ChessBoard implements Cloneable {
 		Player2pieces.add(new Knight(8, 7));
 		Player2pieces.add(new Bishop(8, 3));
 		Player2pieces.add(new Bishop(8, 6));
-		Player2pieces.add(new King(8, 4));
-		Player2pieces.add(new Queen(8, 5));
+		Player2pieces.add(new King(8, 5));
+		Player2pieces.add(new Queen(8, 4));
 		for (int i = 1; i < 9; i++) {
 			Player2pieces.add(new Pawn(7, i));
 		}
@@ -33,8 +33,23 @@ public class ChessBoard implements Cloneable {
 	public ChessBoard(HashSet<Piece> player1, HashSet<Piece> player2) {
 		Player2pieces = new HashSet<>();
 		Player1pieces = new HashSet<>();
-		Player2pieces = player2;
-		Player1pieces = player1;
+		for (Piece each : player1) {
+			Player1pieces.add(each.clone());
+		}
+		for (Piece each : player2) {
+			Player2pieces.add(each.clone());
+		}
+	}
+
+	public ChessBoard(ChessBoard board) {
+		Player2pieces = new HashSet<>();
+		Player1pieces = new HashSet<>();
+		for (Piece each : board.Player1pieces) {
+			Player1pieces.add(each.clone());
+		}
+		for (Piece each : board.Player2pieces) {
+			Player1pieces.add(each.clone());
+		}
 	}
 
 	public ChessBoard clone() {
@@ -90,16 +105,32 @@ public class ChessBoard implements Cloneable {
 
 	}
 
+	public HashSet<Move> removebadmove(HashSet<Move> moves, int player) {
+		HashSet<Move> newmoves = new HashSet<>();
+		for (Move each : moves)
+			if (testmove(each, player))
+				newmoves.add(each);
+		return newmoves;
+	}
+
+	private boolean testmove(Move each, int player) {
+		this.performmove(each, player);
+		return !this.playerincheck(player);
+	}
+
 	public HashSet<Move> cancelcheck(int player) {
 		return new HashSet<Move>();
 	}
 
 	public void performmove(Move m, int player) {
+		if (m.castle) {
+			
+		} else {
 		if (player == 1) {
 			if (player2pieceat(m.endLoc))
 				removep2loc(m.endLoc);
 			for (Piece each : Player1pieces) {
-				if (each.L.equals(m.startLoc)) {
+				if (each.L.toString().equals(m.startLoc.toString())) {
 					each.setNewLocation(m.endLoc);
 					each.setmoved();
 				}
@@ -109,11 +140,12 @@ public class ChessBoard implements Cloneable {
 			if (player1pieceat(m.endLoc))
 				removep1loc(m.endLoc);
 			for (Piece each : Player2pieces) {
-				if (each.L.equals(m.startLoc)) {
+				if (each.L.toString().equals(m.startLoc.toString())) {
 					each.setNewLocation(m.endLoc);
 					each.setmoved();
 				}
 			}
+		}
 		}
 	}
 
@@ -131,23 +163,23 @@ public class ChessBoard implements Cloneable {
 		for (java.util.Iterator<Piece> i = Player2pieces.iterator(); i
 				.hasNext();) {
 			Piece element = i.next();
-			if (element.L.equals(endLoc)) {
+			if (element.L.toString().equals(endLoc.toString())) {
 				i.remove();
 			}
 		}
 	}
 
 	public boolean checkwin(int player) {
-		return false;
+		return (playerincheck(player) && generatemoves(player).size() == 0);
 	}
 
 	public boolean pieceat(Location location) {
 		for (Piece each : Player1pieces) {
-			if (each.L.equals(location))
+			if (each.L.toString().equals(location.toString()))
 				return true;
 		}
 		for (Piece each : Player2pieces) {
-			if (each.L.equals(location))
+			if (each.L.toString().equals(location.toString()))
 				return true;
 		}
 		return false;
@@ -155,7 +187,7 @@ public class ChessBoard implements Cloneable {
 
 	public boolean player2pieceat(Location location) {
 		for (Piece each : Player2pieces) {
-			if (each.L.equals(location))
+			if (each.L.toString().equals(location.toString()))
 				return true;
 		}
 		return false;
@@ -163,9 +195,81 @@ public class ChessBoard implements Cloneable {
 
 	public boolean player1pieceat(Location location) {
 		for (Piece each : Player1pieces) {
-			if (each.L.equals(location))
+			if (each.L.toString().equals(location.toString()))
 				return true;
 		}
+		return false;
+	}
+
+	public boolean otherpieceat(Location location, int player) {
+		if (player == 1)
+			return player2pieceat(location);
+		else
+			return player1pieceat(location);
+	}
+
+	public boolean playerincheck(int player) {
+		int p = changeplayer(player);
+		HashSet<Move> moves = this.generatemoves(p);
+		for (Move each : moves)
+			if (this.otherpieceat(each.endLoc, p) && this.kingat(each.endLoc))
+				return true;
+		return false;
+	}
+
+	private boolean kingat(Location endLoc) {
+		for (Piece each : Player1pieces) {
+			if (each.L.toString().equals(endLoc.toString()) && each.isking())
+				return true;
+		}
+		for (Piece each : Player2pieces) {
+			if (each.L.toString().equals(endLoc.toString()) && each.isking())
+				return true;
+		}
+		return false;
+	}
+
+	private int changeplayer(int player) {
+		if (player == 2)
+			return 1;
+		else
+			return 2;
+	}
+
+	public void checkpawns(int player) {
+		for (Piece each : Player1pieces) {
+			if (each.checkPawn())
+				setQueen(each, player);
+		}
+		for (Piece each : Player2pieces) {
+			if (each.checkPawn())
+				setQueen(each, player);
+		}
+	}
+
+	private void setQueen(Piece each, int player) {
+		if (player == 1) {
+			for (Piece e : Player1pieces) {
+				if (e.L.toString().equals(each.L.toString()))
+					Player1pieces.add(new Queen(each.L));
+				Player1pieces.remove(each);
+			}
+		} else {
+			for (Piece e : Player2pieces) {
+				if (e.L.toString().equals(each.L.toString()))
+					Player2pieces.add(new Queen(each.L));
+				Player2pieces.remove(each);
+			}
+		}
+	}
+
+	public boolean movedpieceat(Location location) {
+		for (Piece each : Player1pieces)
+			if (each.L.toString().equals(location.toString()) && each.moved)
+				return true;
+		for (Piece each : Player2pieces)
+			if (each.L.toString().equals(location.toString()) && each.moved)
+				return true;
 		return false;
 	}
 

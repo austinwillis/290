@@ -27,13 +27,13 @@ public class Pawn extends Piece {
 							this.L.column)));
 			}
 			if (L.row < 8 && L.column < 8)
-				if (board.player2pieceat(new Location(this.L.row + 1,
-						this.L.column + 1)))
+				if (board.otherpieceat(new Location(this.L.row + 1,
+						this.L.column + 1), player))
 					moves.add(new Move(this.L, new Location(this.L.row + 1,
 							this.L.column + 1)));
 			if (L.row < 8 && L.column > 1)
-				if (board.player2pieceat(new Location(this.L.row + 1,
-						this.L.column - 1)))
+				if (board.otherpieceat(new Location(this.L.row + 1,
+						this.L.column - 1), player))
 					moves.add(new Move(this.L, new Location(this.L.row + 1,
 							this.L.column - 1)));
 		} else {
@@ -50,16 +50,29 @@ public class Pawn extends Piece {
 							this.L.column)));
 			}
 			if (L.row > 1 && L.column < 8)
-				if (board.player1pieceat(new Location(this.L.row - 1,
-						this.L.column + 1)))
+				if (board.otherpieceat(new Location(this.L.row - 1,
+						this.L.column + 1), player))
 					moves.add(new Move(this.L, new Location(this.L.row - 1,
 							this.L.column + 1)));
 			if (L.row > 1 && L.column > 1)
-				if (board.player1pieceat(new Location(this.L.row - 1,
-						this.L.column - 1)))
+				if (board.otherpieceat(new Location(this.L.row - 1,
+						this.L.column - 1), player))
 					moves.add(new Move(this.L, new Location(this.L.row - 1,
 							this.L.column - 1)));
 		}
 		return moves;
+	}
+
+	@Override
+	public Pawn clone() {
+		{
+			return new Pawn(L.row, L.column);
+		}
+	}
+
+	public boolean checkPawn() {
+		if (L.row == 1 || L.row == 8)
+			return true;
+		return false;
 	}
 }

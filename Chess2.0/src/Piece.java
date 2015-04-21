@@ -1,6 +1,6 @@
 import java.util.HashSet;
 
-abstract class Piece {
+abstract class Piece implements Cloneable {
 
 	public Location L;
 	public boolean moved;
@@ -8,6 +8,10 @@ abstract class Piece {
 	public Piece(int i, int j) {
 		L = new Location(i, j);
 		moved = false;
+	}
+
+	public Piece(Location l) {
+		this(l.row, l.column);
 	}
 
 	boolean equals(Piece P) {
@@ -37,6 +41,12 @@ abstract class Piece {
 		return L;
 	}
 
+	abstract public Piece clone();
+
 	public abstract HashSet<Move> generatemoves(ChessBoard board, int player);
+
+	public boolean checkPawn() {
+		return false;
+	}
 
 }

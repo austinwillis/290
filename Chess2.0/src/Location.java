@@ -8,10 +8,6 @@ public class Location {
 		column = c;
 	}
 
-	boolean equals(Location P) {
-		return (this.toString().equals(P.toString()));
-	}
-
 	public String toString() {
 		StringBuffer output = new StringBuffer();
 		char r = (char) (column + 96);
