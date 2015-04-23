@@ -67,18 +67,25 @@ public class King extends Piece {
 			}
 		}
 		if (!this.moved
-				&& board.pieceat(new ChessLocation(this.L.row, this.L.column + 3))
-				&& !board.pieceat(new ChessLocation(this.L.row, this.L.column + 2))
-				&& !board.pieceat(new ChessLocation(this.L.row, this.L.column + 1))
+				&& board.pieceat(new ChessLocation(this.L.row,
+						this.L.column + 3))
+				&& !board.pieceat(new ChessLocation(this.L.row,
+						this.L.column + 2))
+				&& !board.pieceat(new ChessLocation(this.L.row,
+						this.L.column + 1))
 				&& !board.movedpieceat(new ChessLocation(this.L.row,
 						this.L.column + 2)))
 			moves.add(new Move(this.L, new ChessLocation(this.L.row,
 					this.L.column + 2), true));
 		if (!this.moved
-				&& board.pieceat(new ChessLocation(this.L.row, this.L.column - 4))
-				&& !board.pieceat(new ChessLocation(this.L.row, this.L.column - 3))
-				&& !board.pieceat(new ChessLocation(this.L.row, this.L.column - 2))
-				&& !board.pieceat(new ChessLocation(this.L.row, this.L.column - 1))
+				&& board.pieceat(new ChessLocation(this.L.row,
+						this.L.column - 4))
+				&& !board.pieceat(new ChessLocation(this.L.row,
+						this.L.column - 3))
+				&& !board.pieceat(new ChessLocation(this.L.row,
+						this.L.column - 2))
+				&& !board.pieceat(new ChessLocation(this.L.row,
+						this.L.column - 1))
 				&& !board.movedpieceat(new ChessLocation(this.L.row,
 						this.L.column - 4)))
 			moves.add(new Move(this.L, new ChessLocation(this.L.row,

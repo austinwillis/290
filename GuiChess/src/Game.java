@@ -1,64 +1,42 @@
 import java.util.HashSet;
-import java.util.Scanner;
 
 public class Game {
 
 	public ChessBoard board;
-	private int player;
+	int player;
+	boolean win;
+
+	public int getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(int player) {
+		this.player = player;
+	}
+
 	HashSet<Move> moves;
 
 	public Game() {
 		board = new ChessBoard();
-	}
-	
-	public void rungame() {
-		board = new ChessBoard();
 		player = 1;
-		boolean win = false;
-		boolean input = false;
-		String s = null;
-		Scanner in = new Scanner(System.in);
+		win = false;
+	}
+
+	public boolean rungame(String s) {
 		Move m;
 		ChessBoard testboard;
-		boolean check = false;
-		int p;
-		while (!win) {
-			testboard = board.clone();
-			moves = board.generatemoves(player);
-			moves = testboard.removebadmove(moves, player);
-			if (check) {
-				if (moves.size() == 0) {
-					p = changeplayer(player);
-					System.out.println("CheckMate! Player " + p + " wins!");
-					break;
-				}
-				System.out.println("Check!");
-			}
-			while (!input) {
-				System.out.print("Player " + player + "'s turn: ");
-				s = in.nextLine();
-				if (s.equals("help")) {
-					System.out.println("Possible Moves: ");
-					for (Move each : moves)
-						System.out.println(each);
-				}
-				m = parseinput(s);
-				if (m != null && hasmove(m)) {
-					board.performmove(m, player);
-					board.checkpawns(player);
-					input = true;
-				} else {
-					System.out.println("Not a legal move, try again.");
-				}
-			}
-			input = false;
-			player = changeplayer(player);
-			if (board.playerincheck(player)) {
-				check = true;
-			} else
-				check = false;
+		testboard = board.clone();
+		moves = board.generatemoves(player);
+		moves = testboard.removebadmove(moves, player);
+		m = parseinput(s);
+		if (m != null && hasmove(m)) {
+			board.performmove(m, player);
+			board.checkpawns(player);
+		} else {
+			return false;
 		}
-		in.close();
+		player = changeplayer(player);
+		return true;
 	}
 
 	private boolean hasmove(Move m) {

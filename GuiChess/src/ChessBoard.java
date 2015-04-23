@@ -112,7 +112,8 @@ public class ChessBoard implements Cloneable {
 				if (each.castle) {
 					if (!playerincheck(player))
 						newmoves.add(each);
-				} else newmoves.add(each);
+				} else
+					newmoves.add(each);
 		return newmoves;
 	}
 
@@ -136,8 +137,8 @@ public class ChessBoard implements Cloneable {
 				if (m.endLoc.column - m.startLoc.column == -2) {
 					this.performmove(new Move(m.startLoc, m.endLoc), player);
 					this.performmove(new Move(new ChessLocation(m.startLoc.row,
-							m.endLoc.column - 3), new ChessLocation(m.startLoc.row,
-							m.endLoc.column - 1)), player);
+							m.endLoc.column - 3), new ChessLocation(
+							m.startLoc.row, m.endLoc.column - 1)), player);
 
 				}
 			}
@@ -186,7 +187,10 @@ public class ChessBoard implements Cloneable {
 	}
 
 	public boolean checkwin(int player) {
-		return (playerincheck(player) && generatemoves(player).size() == 0);
+		HashSet<Move> moves;
+		moves = generatemoves(player);
+		moves = removebadmove(moves, player);
+		return (playerincheck(player) && moves.size() == 0);
 	}
 
 	public boolean pieceat(ChessLocation location) {
