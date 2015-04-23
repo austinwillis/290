@@ -1,9 +1,9 @@
-public class Location {
+public class ChessLocation {
 
 	int row;
 	int column;
 
-	public Location(int r, int c) {
+	public ChessLocation(int r, int c) {
 		row = r;
 		column = c;
 	}

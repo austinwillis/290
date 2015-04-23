@@ -6,7 +6,7 @@ public class Queen extends Piece {
 		super(i, j);
 	}
 
-	public Queen(Location l) {
+	public Queen(ChessLocation l) {
 		super(l);
 	}
 
@@ -17,10 +17,10 @@ public class Queen extends Piece {
 	@Override
 	public HashSet<Move> generatemoves(ChessBoard board, int player) {
 		HashSet<Move> moves = new HashSet<>();
-		Location l = null;
+		ChessLocation l = null;
 		int i = 1;
 		while (this.L.row + i < 9 && this.L.column + i < 9) {
-			l = new Location(this.L.row + i, this.L.column + i);
+			l = new ChessLocation(this.L.row + i, this.L.column + i);
 			if (!board.pieceat(l) || board.otherpieceat(l, player)) {
 				moves.add(new Move(this.L, l));
 			}
@@ -31,7 +31,7 @@ public class Queen extends Piece {
 		}
 		i = 1;
 		while (this.L.row - i > 0 && this.L.column + i < 9) {
-			l = new Location(this.L.row - i, this.L.column + i);
+			l = new ChessLocation(this.L.row - i, this.L.column + i);
 			if (!board.pieceat(l) || board.otherpieceat(l, player)) {
 				moves.add(new Move(this.L, l));
 			}
@@ -42,7 +42,7 @@ public class Queen extends Piece {
 		}
 		i = 1;
 		while (this.L.row - i > 0 && this.L.column - i > 0) {
-			l = new Location(this.L.row - i, this.L.column - i);
+			l = new ChessLocation(this.L.row - i, this.L.column - i);
 			if (!board.pieceat(l) || board.otherpieceat(l, player)) {
 				moves.add(new Move(this.L, l));
 			}
@@ -53,7 +53,7 @@ public class Queen extends Piece {
 		}
 		i = 1;
 		while (this.L.row + i < 9 && this.L.column - i > 0) {
-			l = new Location(this.L.row + i, this.L.column - i);
+			l = new ChessLocation(this.L.row + i, this.L.column - i);
 			if (!board.pieceat(l) || board.otherpieceat(l, player)) {
 				moves.add(new Move(this.L, l));
 			}
@@ -64,7 +64,7 @@ public class Queen extends Piece {
 		}
 		i = 1;
 		while (this.L.row + i < 9) {
-			l = new Location(this.L.row + i, this.L.column);
+			l = new ChessLocation(this.L.row + i, this.L.column);
 			if (!board.pieceat(l) || board.otherpieceat(l, player)) {
 				moves.add(new Move(this.L, l));
 			}
@@ -75,7 +75,7 @@ public class Queen extends Piece {
 		}
 		i = 1;
 		while (this.L.column + i < 9) {
-			l = new Location(this.L.row, this.L.column + i);
+			l = new ChessLocation(this.L.row, this.L.column + i);
 			if (!board.pieceat(l) || board.otherpieceat(l, player)) {
 				moves.add(new Move(this.L, l));
 			}
@@ -86,7 +86,7 @@ public class Queen extends Piece {
 		}
 		i = 1;
 		while (this.L.row - i > 0) {
-			l = new Location(this.L.row - i, this.L.column);
+			l = new ChessLocation(this.L.row - i, this.L.column);
 			if (!board.pieceat(l) || board.otherpieceat(l, player)) {
 				moves.add(new Move(this.L, l));
 			}
@@ -97,7 +97,7 @@ public class Queen extends Piece {
 		}
 		i = 1;
 		while (this.L.column - i > 0) {
-			l = new Location(this.L.row, this.L.column - i);
+			l = new ChessLocation(this.L.row, this.L.column - i);
 			if (!board.pieceat(l) || board.otherpieceat(l, player)) {
 				moves.add(new Move(this.L, l));
 			}

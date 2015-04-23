@@ -2,15 +2,15 @@ import java.util.HashSet;
 
 abstract class Piece implements Cloneable {
 
-	public Location L;
+	public ChessLocation L;
 	public boolean moved;
 
 	public Piece(int i, int j) {
-		L = new Location(i, j);
+		L = new ChessLocation(i, j);
 		moved = false;
 	}
 
-	public Piece(Location l) {
+	public Piece(ChessLocation l) {
 		this(l.row, l.column);
 	}
 
@@ -28,7 +28,7 @@ abstract class Piece implements Cloneable {
 		moved = true;
 	}
 
-	public void setNewLocation(Location L) {
+	public void setNewLocation(ChessLocation L) {
 		this.L = L;
 	}
 

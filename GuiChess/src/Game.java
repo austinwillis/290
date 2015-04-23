@@ -3,15 +3,14 @@ import java.util.Scanner;
 
 public class Game {
 
-	public static void main(String args[]) {
-		Game g = new Game();
-		g.rungame();
-	}
-
 	public ChessBoard board;
 	private int player;
 	HashSet<Move> moves;
 
+	public Game() {
+		board = new ChessBoard();
+	}
+	
 	public void rungame() {
 		board = new ChessBoard();
 		player = 1;
@@ -31,13 +30,11 @@ public class Game {
 				if (moves.size() == 0) {
 					p = changeplayer(player);
 					System.out.println("CheckMate! Player " + p + " wins!");
-					System.out.println(board);
 					break;
 				}
 				System.out.println("Check!");
 			}
 			while (!input) {
-				System.out.println(board);
 				System.out.print("Player " + player + "'s turn: ");
 				s = in.nextLine();
 				if (s.equals("help")) {
@@ -116,8 +113,8 @@ public class Game {
 		if (inputrow < 9 && inputrow > 0 && inputcolumn < 9 && inputcolumn > 0
 				&& outputrow < 9 && outputrow > 0 && outputcolumn < 9
 				&& outputcolumn > 0) {
-			Move m = new Move(new Location(inputrow, inputcolumn),
-					new Location(outputrow, outputcolumn));
+			Move m = new Move(new ChessLocation(inputrow, inputcolumn),
+					new ChessLocation(outputrow, outputcolumn));
 			return m;
 		}
 		return null;

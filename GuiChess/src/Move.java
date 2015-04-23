@@ -1,15 +1,15 @@
 public class Move {
 
-	public Location startLoc;
-	public Location endLoc;
+	public ChessLocation startLoc;
+	public ChessLocation endLoc;
 	boolean castle;
 
-	public Move(Location s, Location e) {
+	public Move(ChessLocation s, ChessLocation e) {
 		startLoc = s;
 		endLoc = e;
 	}
 
-	public Move(Location s, Location e, boolean c) {
+	public Move(ChessLocation s, ChessLocation e, boolean c) {
 		startLoc = s;
 		endLoc = e;
 		castle = c;

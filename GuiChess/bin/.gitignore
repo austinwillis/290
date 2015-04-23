@@ -11,3 +11,28 @@
 /Piece.class
 /Queen.class
 /Rook.class
+/ChessButton.class
+/ChessLocation.class
+/Black B.ico
+/Black K.ico
+/Black N.ico
+/Black P.ico
+/Black Q.ico
+/Black R.ico
+/White K.ico
+/White N.ico
+/White P.ico
+/White Q.ico
+/White R.ico
+/BBishop.png
+/BKing.png
+/BKnight.png
+/BPawn.png
+/BQueen.png
+/BRook.png
+/WBishop.png
+/WKing.png
+/WKnight.png
+/WPawn.png
+/WQueen.png
+/WRook.png

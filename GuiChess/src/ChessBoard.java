@@ -63,7 +63,7 @@ public class ChessBoard implements Cloneable {
 			for (int j = 1; j < 9; j++) {
 				if (j == 1)
 					output.append(i + "  ");
-				output.append(this.printPiece(new Location(i, j)));
+				output.append(this.printPiece(new ChessLocation(i, j)));
 				if (j < 8)
 					output.append("  ");
 				else
@@ -76,7 +76,7 @@ public class ChessBoard implements Cloneable {
 
 	}
 
-	private String printPiece(Location L) {
+	private String printPiece(ChessLocation L) {
 		for (Piece each : Player1pieces) {
 			if (each.getlocation().toString().equals(L.toString())) {
 				return each.toString();
@@ -129,14 +129,14 @@ public class ChessBoard implements Cloneable {
 		if (m.castle) {
 			if (m.endLoc.column - m.startLoc.column == 2) {
 				this.performmove(new Move(m.startLoc, m.endLoc), player);
-				this.performmove(new Move(new Location(m.startLoc.row,
-						m.endLoc.column + 3), new Location(m.startLoc.row,
+				this.performmove(new Move(new ChessLocation(m.startLoc.row,
+						m.endLoc.column + 3), new ChessLocation(m.startLoc.row,
 						m.endLoc.column + 1)), player);
 			} else {
 				if (m.endLoc.column - m.startLoc.column == -2) {
 					this.performmove(new Move(m.startLoc, m.endLoc), player);
-					this.performmove(new Move(new Location(m.startLoc.row,
-							m.endLoc.column - 3), new Location(m.startLoc.row,
+					this.performmove(new Move(new ChessLocation(m.startLoc.row,
+							m.endLoc.column - 3), new ChessLocation(m.startLoc.row,
 							m.endLoc.column - 1)), player);
 
 				}
@@ -165,7 +165,7 @@ public class ChessBoard implements Cloneable {
 		}
 	}
 
-	private void removep1loc(Location endLoc) {
+	private void removep1loc(ChessLocation endLoc) {
 		for (java.util.Iterator<Piece> i = Player1pieces.iterator(); i
 				.hasNext();) {
 			Piece element = i.next();
@@ -175,7 +175,7 @@ public class ChessBoard implements Cloneable {
 		}
 	}
 
-	private void removep2loc(Location endLoc) {
+	private void removep2loc(ChessLocation endLoc) {
 		for (java.util.Iterator<Piece> i = Player2pieces.iterator(); i
 				.hasNext();) {
 			Piece element = i.next();
@@ -189,7 +189,7 @@ public class ChessBoard implements Cloneable {
 		return (playerincheck(player) && generatemoves(player).size() == 0);
 	}
 
-	public boolean pieceat(Location location) {
+	public boolean pieceat(ChessLocation location) {
 		for (Piece each : Player1pieces) {
 			if (each.L.toString().equals(location.toString()))
 				return true;
@@ -201,7 +201,7 @@ public class ChessBoard implements Cloneable {
 		return false;
 	}
 
-	public boolean player2pieceat(Location location) {
+	public boolean player2pieceat(ChessLocation location) {
 		for (Piece each : Player2pieces) {
 			if (each.L.toString().equals(location.toString()))
 				return true;
@@ -209,7 +209,7 @@ public class ChessBoard implements Cloneable {
 		return false;
 	}
 
-	public boolean player1pieceat(Location location) {
+	public boolean player1pieceat(ChessLocation location) {
 		for (Piece each : Player1pieces) {
 			if (each.L.toString().equals(location.toString()))
 				return true;
@@ -217,7 +217,7 @@ public class ChessBoard implements Cloneable {
 		return false;
 	}
 
-	public boolean otherpieceat(Location location, int player) {
+	public boolean otherpieceat(ChessLocation location, int player) {
 		if (player == 1)
 			return player2pieceat(location);
 		else
@@ -233,7 +233,7 @@ public class ChessBoard implements Cloneable {
 		return false;
 	}
 
-	private boolean kingat(Location endLoc) {
+	private boolean kingat(ChessLocation endLoc) {
 		for (Piece each : Player1pieces) {
 			if (each.L.toString().equals(endLoc.toString()) && each.isking())
 				return true;
@@ -279,7 +279,7 @@ public class ChessBoard implements Cloneable {
 		}
 	}
 
-	public boolean movedpieceat(Location location) {
+	public boolean movedpieceat(ChessLocation location) {
 		for (Piece each : Player1pieces)
 			if (each.L.toString().equals(location.toString()) && each.moved)
 				return true;
