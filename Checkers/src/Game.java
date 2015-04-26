@@ -1,8 +1,13 @@
 import java.util.Scanner;
 
 public class Game {
+	
+	public static void main(String args[]) {
+		Game g = new Game();
+		g.run();
+	}
 
-	public static void main(String[] args) {
+	public void run() {
 		System.out.println("Welcome to Checkers.");
 		System.out.println("Example move: a4-b5");
 		CheckerBoard board = new CheckerBoard();
@@ -37,7 +42,7 @@ public class Game {
 		in.close();
 }
 
-	private static boolean parseinput(int currentPlayer, String s, int inputrow, int inputcolumn,
+	private boolean parseinput(int currentPlayer, String s, int inputrow, int inputcolumn,
 			int outputrow, int outputcolumn, CheckerBoard board, Scanner in, boolean second) {
 		String[] chars = s.split("-");
 		for (int i = 0; i < chars.length; i++)
@@ -85,7 +90,7 @@ public class Game {
 		return false;
 	}
 
-	private static void moveagain(int currentPlayer, String s, int inputrow, int inputcolumn, int outputrow, int outputcolumn, CheckerBoard board, Scanner in) {
+	private void moveagain(int currentPlayer, String s, int inputrow, int inputcolumn, int outputrow, int outputcolumn, CheckerBoard board, Scanner in) {
 		System.out.print("Another jump available, go again: ");
 		boolean inputfail = true; 
 		while (inputfail) {
