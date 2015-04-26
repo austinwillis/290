@@ -21,6 +21,7 @@ public class Game {
 			if(parseinput(currentPlayer, s, inputrow, inputcolumn, outputrow, outputcolumn, board, in, false))
 				inputfail = false;
 			else {
+				System.out.println(board);
 				System.out.println("Not a legal move. Try again: ");
 			}
 			s = new String();
@@ -92,6 +93,7 @@ public class Game {
 			if(parseinput(currentPlayer, s, inputrow, inputcolumn, outputrow, outputcolumn, board, in, true))
 				inputfail = false;
 			else {
+				System.out.println(board);
 				System.out.println("Not a legal move. Try agiain: ");
 			}
 		}
