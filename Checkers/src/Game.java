@@ -94,7 +94,7 @@ public class Game {
 				inputfail = false;
 			else {
 				System.out.println(board);
-				System.out.println("Not a legal move. Try agiain: ");
+				System.out.println("Not a legal move. Try again: ");
 			}
 		}
 	}
