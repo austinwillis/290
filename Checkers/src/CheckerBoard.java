@@ -3,33 +3,34 @@ import java.util.ArrayList;
 
 public class CheckerBoard {
 	
+	private static final int BOARDSIZE = 8;
 	Piece [][] spaces = new Piece[8][8];
 	
 	public CheckerBoard() {
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
-				spaces[i][j] = new Piece(j, i);
+		for (int i = 0; i < BOARDSIZE; i++) {
+			for (int j = 0; j < BOARDSIZE; j++) {
+				spaces[i][j] = new Piece(j, i, 0);
 			}
 		}
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
+		for (int i = 0; i < BOARDSIZE; i++) {
+			for (int j = 0; j < BOARDSIZE; j++) {
 				if (i < 3) {
 					if (j%2 != 0) {
 						if (i%2 != 0)
-							spaces[i][j] = new BlackPiece(j, i);
+							spaces[i][j] = new Piece(j, i, 2);
 					}
 					else
 						if (i%2 == 0)
-							spaces[i][j] = new BlackPiece(j, i);
+							spaces[i][j] = new Piece(j, i, 2);
 				}
 				if (i > 4) {
 					if (j%2 == 0) {
 						if (i%2 == 0)
-							spaces[i][j] = new RedPiece(j, i);
+							spaces[i][j] = new Piece(j, i, 1);
 				}
 					else
 						if (i%2 != 0)
-							spaces[i][j] = new RedPiece(j, i);
+							spaces[i][j] = new Piece(j, i, 1);
 			}
 		}
 	}
@@ -38,12 +39,12 @@ public class CheckerBoard {
 	
 	public String toString() {
 		String output = "";
-		for (int i = 0; i < 8; i++) {
-				for (int j = 0; j < 8; j++) {
+		for (int i = 0; i < BOARDSIZE; i++) {
+				for (int j = 0; j < BOARDSIZE; j++) {
 					if (j == 0)
-						output += i + 1 + "  ";
+						output += 8 - i + "  ";
 					output += spaces[i][j].toString();
-					if (j < 7)
+					if (j < BOARDSIZE - 1)
 						output += "  ";
 					else output += "\n";
 				}
@@ -57,7 +58,8 @@ public class CheckerBoard {
 
 
 	public boolean move(int player, Move m, boolean second) {
-		ArrayList<Move> moves = new ArrayList<Move>(); 
+		ArrayList<Move> moves = new ArrayList<Move>();
+		boolean k = spaces[m.inputrow][m.inputcolumn].isking();
 		if (second) {
 			moves = (spaces[m.inputrow][m.inputcolumn].addmoves(this));
 			moves = checkjumps(moves);
@@ -65,16 +67,16 @@ public class CheckerBoard {
 		if (hasmove(moves, m)) {
 		if (m.jump) {
 			if (player == 1)
-				this.spaces[m.outputrow][m.outputcolumn] = new RedPiece(m.outputcolumn, m.outputrow);
-			else this.spaces[m.outputrow][m.outputcolumn] = new BlackPiece(m.outputcolumn, m.outputrow);
-		this.spaces[m.inputrow][m.inputcolumn] = new Piece(m.inputcolumn, m.inputrow);
+				this.spaces[m.outputrow][m.outputcolumn] = new Piece(m.outputcolumn, m.outputrow, 1, k);
+			else this.spaces[m.outputrow][m.outputcolumn] = new Piece(m.outputcolumn, m.outputrow, 2, k);
+		this.spaces[m.inputrow][m.inputcolumn] = new Piece(m.inputcolumn, m.inputrow, 0);
 		this.spaces[m.inputrow + (m.outputrow - m.inputrow) / 2][m.inputcolumn + (m.outputcolumn - m.inputcolumn) / 2] =
-				new Piece(m.inputrow + (m.outputrow - m.inputrow) / 2, m.inputcolumn + (m.outputcolumn - m.inputcolumn) / 2);
+				new Piece(m.inputrow + (m.outputrow - m.inputrow) / 2, m.inputcolumn + (m.outputcolumn - m.inputcolumn) / 2, 0);
 		} else { 
 			if (player == 1)
-				this.spaces[m.outputrow][m.outputcolumn] = new RedPiece(m.outputcolumn, m.outputrow);
-			else this.spaces[m.outputrow][m.outputcolumn] = new BlackPiece(m.outputcolumn, m.outputrow);
-			this.spaces[m.inputrow][m.inputcolumn] = new Piece(m.inputcolumn, m.inputrow);
+				this.spaces[m.outputrow][m.outputcolumn] = new Piece(m.outputcolumn, m.outputrow, 1, k);
+			else this.spaces[m.outputrow][m.outputcolumn] = new Piece(m.outputcolumn, m.outputrow, 2, k);
+			this.spaces[m.inputrow][m.inputcolumn] = new Piece(m.inputcolumn, m.inputrow, 0);
 		}
 		this.spaces[m.outputrow][m.outputcolumn].checkking();
 		System.out.println("");
@@ -115,8 +117,8 @@ public class CheckerBoard {
 
 	private ArrayList<Move> generatemoves(int player) {
 		ArrayList<Move> moves = new ArrayList<Move>();
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
+		for (int i = 0; i < BOARDSIZE; i++) {
+			for (int j = 0; j < BOARDSIZE; j++) {
 				if (this.spaces[i][j].color == player) {
 					moves.addAll(spaces[i][j].addmoves(this));
 				}
@@ -138,9 +140,9 @@ public class CheckerBoard {
 
 	public boolean checkwin(int currentPlayer) {
 		boolean win = true;
-		for (int i = 0; i < 8; i++)
-			for (int j = 0; j < 8; j++)
-				if (spaces[i][j].color != 0 || spaces[i][j].color != currentPlayer)
+		for (int i = 0; i < BOARDSIZE; i++)
+			for (int j = 0; j < BOARDSIZE; j++)
+				if (spaces[i][j].color != 0 && spaces[i][j].color != currentPlayer)
 					win = false;
 		return win;
 	}

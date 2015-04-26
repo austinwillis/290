@@ -21,17 +21,17 @@ public class Game {
 			if(parseinput(currentPlayer, s, inputrow, inputcolumn, outputrow, outputcolumn, board, in, false))
 				inputfail = false;
 			else {
-				System.out.println("Not a legal move. Try agiain: ");
+				System.out.println("Not a legal move. Try again: ");
 			}
 			s = new String();
 			}
+			win = board.checkwin(currentPlayer);
+			if (win)
+				System.out.println("Player " + currentPlayer + " wins!");
 			currentPlayer = (currentPlayer + 1);
 			if (currentPlayer %2 == 0)
 				currentPlayer = 2;
 			else currentPlayer = 1;
-			win = board.checkwin(currentPlayer);
-			if (win)
-				System.out.println("Player " + currentPlayer + " wins!");
 		}
 		in.close();
 }
@@ -47,10 +47,10 @@ public class Game {
 			String input = chars[0];
 			char inputrowchar = input.charAt(0);
 			inputrowchar = Character.toLowerCase(inputrowchar);
-			inputcolumn = inputrowchar - 97;
+			inputcolumn = (inputrowchar - 97);
 			
 			try {
-				inputrow = Integer.parseInt(chars[0].substring(1, input.length())) - 1;
+				inputrow = 9 - Integer.parseInt(chars[0].substring(1, input.length())) - 1;
 				} catch (NumberFormatException nfe) {
 				  inputrow = -1;
 				}
@@ -58,10 +58,10 @@ public class Game {
 			input = chars[1];
 			inputrowchar = input.charAt(0);
 			inputrowchar = Character.toLowerCase(inputrowchar);
-			outputcolumn = inputrowchar - 97;
+			outputcolumn = (inputrowchar - 97);
 			
 			try {
-				outputrow = Integer.parseInt(chars[1].substring(1, input.length())) - 1;
+				outputrow = 9 - Integer.parseInt(chars[1].substring(1, input.length())) - 1;
 				} catch (NumberFormatException nfe) {
 				  outputrow = -1;
 				}
